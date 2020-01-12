@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PlayMenuActivity">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/main_bg_gif_wallpaper"
+        android:background="@drawable/main_bg_gif_wallpaper"
+        android:scaleType="centerCrop"
+        />
+
+    <ImageButton
+        android:src="@drawable/back_button"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/play_menu_back_button"/>
+
+    <ImageButton
+        android:layout_width="310dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="0dp"
+        android:background="@null"
+        android:src="@drawable/campaign_label"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/campaign_button"/>
+    <ImageButton
+        android:layout_width="380dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="0dp"
+        android:background="@null"
+        android:src="@drawable/mini_games_label"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/campaign_button"
+        android:id="@+id/minigames_button"/>
+
+    <ImageButton
+        android:layout_width="380dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="0dp"
+        android:background="@null"
+        android:src="@drawable/shop_label"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/minigames_button"
+        android:id="@+id/shop_button"/>
+
+</RelativeLayout>
