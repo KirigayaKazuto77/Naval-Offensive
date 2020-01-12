@@ -60,6 +60,11 @@
             android:screenOrientation="landscape">
         </activity>
 
+        <activity android:name=".Stage1_a_Activity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="landscape">
+        </activity>
+
     </application>
 
 </manifest>

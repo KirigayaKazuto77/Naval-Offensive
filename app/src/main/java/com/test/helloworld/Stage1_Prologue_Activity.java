@@ -36,7 +36,7 @@ public class Stage1_Prologue_Activity extends AppCompatActivity {
         stopService(loading_sound);
         startService(svc);
 
-        Intent mainIntent = new Intent(Stage1_Prologue_Activity.this, CampaignListActivity.class);
+        Intent mainIntent = new Intent(Stage1_Prologue_Activity.this, Stage1_a_Activity.class);
         startActivity(mainIntent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 

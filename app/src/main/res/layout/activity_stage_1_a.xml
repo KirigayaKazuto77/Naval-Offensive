@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@null"
+        android:src="@drawable/pause_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/pause_button"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/pause_menu_bg"
+        android:id="@+id/pause_menu">
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:background="@color/darkblue"
+            android:layout_gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:src="@drawable/master_control_label"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/volume_label"/>
+
+            <SeekBar
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/volume_label"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-20dp"
+                android:progressDrawable="@drawable/seektrack"
+                android:thumb="@drawable/thumbtrack"
+                android:indeterminate="false"
+                android:id="@+id/volume_seekbar"/>
+
+            <ImageButton
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="0dp"
+                android:background="@null"
+                android:src="@drawable/resume_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/volume_seekbar"
+                android:id="@+id/resume_button"/>
+
+            <ImageButton
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="30dp"
+                android:background="@null"
+                android:src="@drawable/mainmenu_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/resume_button"
+                android:id="@+id/mainmenu_button"/>
+
+            <ImageButton
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="0dp"
+                android:background="@null"
+                android:src="@drawable/quit_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/mainmenu_button"
+                android:id="@+id/quit_button"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
