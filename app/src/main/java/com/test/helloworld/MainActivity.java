@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickexit(View v){
-
         MediaPlayer soundfx = MediaPlayer.create(MainActivity.this, R.raw.button_click_sfx);
         soundfx.start();
 

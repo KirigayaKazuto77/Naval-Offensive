@@ -11,7 +11,7 @@ public class Campaign1_Loading_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_campaign1_loading_screen);
+        setContentView(R.layout.activity_stage_1_loading_screen);
 
         final Intent svc=new Intent(this, BackgroundSoundService.class);
         stopService(svc);
