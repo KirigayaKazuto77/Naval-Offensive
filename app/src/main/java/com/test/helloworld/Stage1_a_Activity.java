@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -24,20 +26,30 @@ public class Stage1_a_Activity extends AppCompatActivity {
     private RelativeLayout pauseMenu;
     private AudioManager audioManager;
     private NumberPicker firingAngle;
-    private int currentAngle;
-    private float fireButtonAlpha;
+    private int currentAngle, currentEnemyLife = 100;
 
-    private static final long START_TIME_IN_MILLIS = 5000;
+    private static final long START_TIME_IN_MILLIS = 3000;
     private CountDownTimer mCountDownTimer;
     private boolean mTimerRunning;
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
-    private TextView mTextViewCountDown;
+    private TextView mTextViewCountDown, currentEnemyLifeDisplay;
+
+    private ProgressBar enemyLifeBar;
+
+    private ImageView gunTurret;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stage_1_a);
 
+        gunTurret = findViewById(R.id.gun_turret);
+
+        // ***************************************************************************
+        // ************************************************ ENEMY LIFE BAR START
+        enemyLifeBar = findViewById(R.id.target_life_points);
+        enemyLifeBar.setMax(100);
+        // ************************************************ ENEMY LIFE BAR END
         // ***************************************************************************
         // ************************************************ PAUSE BUTTON START
         pauseMenu = findViewById(R.id.pause_menu);
@@ -57,6 +69,13 @@ public class Stage1_a_Activity extends AppCompatActivity {
         firingAngle.setMinValue(0);
 
         currentAngle = firingAngle.getValue();
+
+        firingAngle.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                gunTurret.setRotation(360 - newVal);
+            }
+        });
         // ************************************************ ANGLE PICKER FINISH
         // ***************************************************************************
         // ************************************************ TIMER START
@@ -66,7 +85,7 @@ public class Stage1_a_Activity extends AppCompatActivity {
         // ************************************************ FIRE BUTTON START
         fireButton = findViewById(R.id.fire_button);
 
-        fireButtonAlpha = fireButton.getAlpha();
+        currentEnemyLifeDisplay = findViewById(R.id.currentAngleText);
 
         fireButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +133,20 @@ public class Stage1_a_Activity extends AppCompatActivity {
     public void fireButtonClicked() {
         MediaPlayer soundfx = MediaPlayer.create(Stage1_a_Activity.this, R.raw.naval_gun_sfx);
         soundfx.start();
+
+        currentAngle = firingAngle.getValue();
+        currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
+
+        if (currentAngle <= 20 && currentAngle >= 15){
+            currentEnemyLife = currentEnemyLife - 20;
+        }
+
+        if (currentEnemyLife == 0){
+            showPauseMenu();
+        }
+
+        currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
+        enemyLifeBar.setProgress(currentEnemyLife);
     }
 
     public void startTimer(){
