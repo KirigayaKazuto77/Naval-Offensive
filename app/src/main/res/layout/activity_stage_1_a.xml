@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,6 +10,15 @@
         android:src="@drawable/prologue_bg"
         android:background="@drawable/prologue_bg"
         android:scaleType="centerCrop" />
+
+    <ImageView
+        android:src="@drawable/target_ship"
+        android:layout_width="200dp"
+        android:layout_height="130dp"
+        android:layout_marginLeft="500dp"
+        android:layout_marginTop="100dp"
+        android:id="@+id/target_ship">
+    </ImageView>
 
     <ImageButton
         android:layout_width="60dp"
@@ -44,13 +52,11 @@
                 android:progressDrawable="@drawable/lifebar_enemy"
                 android:thumb="@drawable/lifebar_button"
                 android:indeterminate="false"
-                android:progress="100"
                 android:id="@+id/target_life_points"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="100"
                 android:textSize="15sp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="-2.5dp"
@@ -134,20 +140,36 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="270dp"
+        android:layout_width="300dp"
         android:layout_height="230dp"
         android:layout_marginLeft="120dp"
-        android:layout_marginTop="110dp">
+        android:layout_marginTop="110dp"
+        android:id="@+id/player_ship">
 
-        <ImageView
-            android:src="@drawable/gun_turret"
+        <RelativeLayout
             android:layout_width="400dp"
-            android:layout_height="70dp"
-            android:layout_marginLeft="-120dp"
-            android:layout_marginBottom="65dp"
-            android:layout_alignParentBottom="true"
+            android:layout_height="100dp"
+            android:layout_marginLeft="-80dp"
+            android:layout_marginTop="80dp"
             android:id="@+id/gun_turret">
-        </ImageView>
+
+            <ImageView
+                android:src="@drawable/gun_turret"
+                android:layout_width="400dp"
+                android:layout_height="230dp"
+                android:layout_marginRight="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+            </ImageView>
+
+            <pl.droidsonroids.gif.GifImageView
+                android:src="@drawable/gun_fire_effect"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="32dp"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
 
         <ImageView
             android:src="@drawable/gun_cupola"
@@ -166,8 +188,8 @@
         android:background="@drawable/pause_menu_bg"
         android:visibility="gone"
         android:id="@+id/pause_menu">
+
         <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="horizontal"
             android:layout_width="350dp"
             android:layout_height="350dp"
@@ -180,6 +202,7 @@
                 android:src="@drawable/master_control_label"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-15dp"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/volume_label"/>
 
@@ -188,7 +211,7 @@
                 android:layout_height="50dp"
                 android:layout_below="@+id/volume_label"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="-20dp"
+                android:layout_marginTop="-25dp"
                 android:progressDrawable="@drawable/seektrack"
                 android:thumb="@drawable/thumbtrack"
                 android:indeterminate="false"
@@ -209,11 +232,20 @@
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:scaleType="fitCenter"
-                android:layout_marginTop="30dp"
+                android:background="@null"
+                android:src="@drawable/restart_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/resume_button"
+                android:id="@+id/restart_button"/>
+
+            <ImageButton
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
                 android:background="@null"
                 android:src="@drawable/mainmenu_button"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/resume_button"
+                android:layout_below="@+id/restart_button"
                 android:id="@+id/mainmenu_button"/>
 
             <ImageButton
@@ -226,6 +258,79 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/mainmenu_button"
                 android:id="@+id/quit_button"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/pause_menu_bg"
+        android:visibility="gone"
+        android:id="@+id/success_popup">
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:background="@color/darkblue"
+            android:layout_gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/mission_complete_popup">
+
+            <ImageView
+                android:src="@drawable/mission_label"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/mission_label">
+            </ImageView>
+
+            <ImageView
+                android:src="@drawable/complete_label"
+                android:layout_width="200dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/mission_label"
+                android:id="@+id/complete_label">
+            </ImageView>
+
+            <ImageButton
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:src="@drawable/next_level"
+                android:layout_below="@+id/complete_label"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/nextLevel_button"/>
+
+            <ImageButton
+                android:onClick="toMainMenu"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="30dp"
+                android:background="@null"
+                android:src="@drawable/mainmenu_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/nextLevel_button"
+                android:id="@+id/success_mainmenu_button"/>
+
+            <ImageButton
+                android:onClick="quitGame"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="0dp"
+                android:background="@null"
+                android:src="@drawable/quit_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/success_mainmenu_button"
+                android:id="@+id/success_quit_button"/>
         </RelativeLayout>
     </RelativeLayout>
 

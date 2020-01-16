@@ -8,6 +8,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
@@ -15,15 +17,14 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 
 public class Stage1_a_Activity extends AppCompatActivity {
 
-    private ImageButton pauseButton, resumeButton, mainmenuButton, quitButton, fireButton;
-    private RelativeLayout pauseMenu;
+    private ImageButton pauseButton, resumeButton, restartButton, mainmenuButton, quitButton, fireButton, successToMainMenu, successToQuit;
+    private RelativeLayout pauseMenu, missionCompletePopUp, shipBody;
     private AudioManager audioManager;
     private NumberPicker firingAngle;
     private int currentAngle, currentEnemyLife = 100;
@@ -35,8 +36,8 @@ public class Stage1_a_Activity extends AppCompatActivity {
     private TextView mTextViewCountDown, currentEnemyLifeDisplay;
 
     private ProgressBar enemyLifeBar;
-
-    private ImageView gunTurret;
+    private RelativeLayout gunTurret;
+    private ImageView targetShip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,11 @@ public class Stage1_a_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_stage_1_a);
 
         gunTurret = findViewById(R.id.gun_turret);
+        missionCompletePopUp = findViewById(R.id.success_popup);
+        shipBody = findViewById(R.id.player_ship);
+        targetShip = findViewById(R.id.target_ship);
+
+        slideUp();
 
         // ***************************************************************************
         // ************************************************ ENEMY LIFE BAR START
@@ -109,6 +115,14 @@ public class Stage1_a_Activity extends AppCompatActivity {
             }
         });
 
+        restartButton = findViewById(R.id.restart_button);
+        restartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restartStage1();
+            }
+        });
+
         mainmenuButton = findViewById(R.id.mainmenu_button);
         mainmenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +133,22 @@ public class Stage1_a_Activity extends AppCompatActivity {
 
         quitButton = findViewById(R.id.quit_button);
         quitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quitGame();
+            }
+        });
+
+        successToMainMenu = findViewById(R.id.success_mainmenu_button);
+        successToMainMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toMainMenu();
+            }
+        });
+
+        successToQuit = findViewById(R.id.success_quit_button);
+        successToQuit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 quitGame();
@@ -142,7 +172,7 @@ public class Stage1_a_Activity extends AppCompatActivity {
         }
 
         if (currentEnemyLife == 0){
-            showPauseMenu();
+            missionCompletePopUp.setVisibility(View.VISIBLE);
         }
 
         currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
@@ -227,6 +257,15 @@ public class Stage1_a_Activity extends AppCompatActivity {
         }
     }
 
+    public void restartStage1(){
+        MediaPlayer soundfx = MediaPlayer.create(Stage1_a_Activity.this, R.raw.button_click_sfx);
+        soundfx.start();
+
+        Intent intent_open_main = new Intent(this, Stage1_Loading_Activity.class);
+        startActivity(intent_open_main);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
     public void toMainMenu(){
         MediaPlayer soundfx = MediaPlayer.create(Stage1_a_Activity.this, R.raw.button_click_sfx);
         soundfx.start();
@@ -253,7 +292,7 @@ public class Stage1_a_Activity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 onDestroy();
-                finish();
+                System.exit(0);
             }
         });
         AlertDialog alertDialog = builder.create();
@@ -267,5 +306,51 @@ public class Stage1_a_Activity extends AppCompatActivity {
         else {
             pauseMenu.setVisibility(View.GONE);
         }
+    }
+
+    public void slideUp() {
+        Animation myanim = AnimationUtils.loadAnimation(this, R.anim.slideup);
+        shipBody.startAnimation(myanim);
+        targetShip.startAnimation(myanim);
+
+        Thread slideUpThread = new Thread()
+        {
+            @Override
+            public void run(){
+                try{
+                    sleep(2000);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+                finally {
+                    slideDown();
+                }
+            }
+        };
+        slideUpThread.start();
+    }
+
+    public void slideDown(){
+        Animation myanim = AnimationUtils.loadAnimation(this, R.anim.slidedown);
+        shipBody.startAnimation(myanim);
+        targetShip.startAnimation(myanim);
+
+        Thread slideDownThread = new Thread()
+        {
+            @Override
+            public void run(){
+                try{
+                    sleep(2000);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+                finally {
+                    slideUp();
+                }
+            }
+        };
+        slideDownThread.start();
     }
 }

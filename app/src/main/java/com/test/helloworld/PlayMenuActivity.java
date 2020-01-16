@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class PlayMenuActivity extends AppCompatActivity {
 
-    private ImageButton back_button, to_campaign_button;
+    private ImageButton back_button, to_campaign_button, shop_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,14 @@ public class PlayMenuActivity extends AppCompatActivity {
                 openMainActivity();
             }
         });
+
+        shop_button = findViewById(R.id.shop_button);
+        shop_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openShop();
+            }
+        });
     }
 
     public void openMainActivity(){
@@ -51,6 +59,14 @@ public class PlayMenuActivity extends AppCompatActivity {
         MediaPlayer soundfx = MediaPlayer.create(PlayMenuActivity.this, R.raw.button_click_sfx);
         soundfx.start();
         Intent intent_open_campaign = new Intent(this, CampaignListActivity.class);
+        startActivity(intent_open_campaign);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    public void openShop(){
+        MediaPlayer soundfx = MediaPlayer.create(PlayMenuActivity.this, R.raw.button_click_sfx);
+        soundfx.start();
+        Intent intent_open_campaign = new Intent(this, ShopActivity.class);
         startActivity(intent_open_campaign);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }

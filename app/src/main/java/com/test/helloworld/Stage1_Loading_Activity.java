@@ -6,7 +6,7 @@ import android.transition.Fade;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Campaign1_Loading_Activity extends AppCompatActivity {
+public class Stage1_Loading_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -34,7 +34,7 @@ public class Campaign1_Loading_Activity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 finally {
-                    Intent mainIntent = new Intent(Campaign1_Loading_Activity.this, Stage1_Prologue_Activity.class);
+                    Intent mainIntent = new Intent(Stage1_Loading_Activity.this, Stage1_Prologue_Activity.class);
                     startActivity(mainIntent);
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }

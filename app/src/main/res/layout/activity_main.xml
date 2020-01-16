@@ -31,10 +31,11 @@
         android:id="@+id/offensive"/>
 
     <ImageButton
-        android:layout_width="250dp"
-        android:layout_height="130dp"
-        android:layout_marginTop="-30dp"
+        android:layout_width="170dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="10dp"
         android:background="@null"
+        android:scaleType="fitCenter"
         android:src="@drawable/play_button_main_menu"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/offensive"
@@ -42,24 +43,24 @@
 
     <ImageButton
         android:scaleType="fitCenter"
-        android:layout_width="150dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="-10dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:background="@null"
         android:src="@drawable/settings_button_main_menu"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/play"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:id="@+id/settings"/>
 
     <ImageButton
         android:scaleType="fitCenter"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-10dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
         android:background="@null"
         android:src="@drawable/quit_button_main_menu"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/settings"
         android:id="@+id/quit"
         android:onClick="clickexit"/>
 

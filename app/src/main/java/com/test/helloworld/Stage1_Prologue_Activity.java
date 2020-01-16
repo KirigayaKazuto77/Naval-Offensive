@@ -17,14 +17,17 @@ public class Stage1_Prologue_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_stage_1_prologue);
 
         play_to_stage1 = findViewById(R.id.stage1_play_fromPrologue);
-        play_to_stage1.setOnClickListener(new View.OnClickListener(){
+        play_to_stage1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 playStage1();
             }
         });
 
+        MediaPlayer soundfx = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage1_prologue_voice);
+        soundfx.start();
     }
+
 
     public void playStage1(){
         MediaPlayer soundfx = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.button_click_sfx);

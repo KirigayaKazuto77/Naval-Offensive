@@ -42,7 +42,7 @@ public class CampaignListActivity extends AppCompatActivity {
         MediaPlayer soundfx = MediaPlayer.create(CampaignListActivity.this, R.raw.button_click_sfx);
         soundfx.start();
 
-        Intent intent_toOpen_stage1 = new Intent(this, Campaign1_Loading_Activity.class);
+        Intent intent_toOpen_stage1 = new Intent(this, Stage1_Loading_Activity.class);
         startActivity(intent_toOpen_stage1);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }

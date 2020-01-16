@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/loadingscreen_1"
     android:orientation="horizontal"
-    tools:context=".Campaign1_Loading_Activity">
+    tools:context=".Stage1_Loading_Activity">
 
     <ProgressBar
         android:layout_width="60dp"

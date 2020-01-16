@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 onDestroy();
-                finish();
+                System.exit(0);
             }
         });
         AlertDialog alertDialog = builder.create();
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 onDestroy();
-                finish();
+                System.exit(0);
             }
         });
         AlertDialog alertDialog = builder.create();
