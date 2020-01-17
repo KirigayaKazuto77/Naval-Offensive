@@ -22,13 +22,28 @@
         android:layout_marginLeft="20dp"
         android:id="@+id/shop_back_button"/>
 
-    <ImageView
-        android:src="@drawable/cash_display"
+    <RelativeLayout
         android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"/>
+        android:layout_marginRight="30dp">
+
+        <ImageView
+            android:src="@drawable/cash_display"
+            android:layout_width="250dp"
+            android:layout_height="60dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="0"
+            android:gravity="right"
+            android:textSize="40sp"
+            android:id="@+id/money"/>
+
+    </RelativeLayout>
 
     <ImageButton
         android:src="@drawable/shop_install_gun_otomelara_mk3"

@@ -3,6 +3,7 @@ package com.test.helloworld;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -27,7 +28,7 @@ public class Stage1_a_Activity extends AppCompatActivity {
     private RelativeLayout pauseMenu, missionCompletePopUp, shipBody;
     private AudioManager audioManager;
     private NumberPicker firingAngle;
-    private int currentAngle, currentEnemyLife = 100;
+    private int money, currentAngle, currentEnemyLife = 100;
 
     private static final long START_TIME_IN_MILLIS = 3000;
     private CountDownTimer mCountDownTimer;
@@ -50,6 +51,13 @@ public class Stage1_a_Activity extends AppCompatActivity {
         targetShip = findViewById(R.id.target_ship);
 
         slideUp();
+
+        //******************************************************************************************
+        //****************************************************************** SHAREDPREFERENCE INITIALIZATION START
+        SharedPreferences sharedPreferences = getSharedPreferences(ShopActivity.moneySharedPreference, MODE_PRIVATE);
+        money = sharedPreferences.getInt("money", 0);
+        //****************************************************************** SHAREDPREFERENCE INITIALIZATION END
+        //******************************************************************************************
 
         // ***************************************************************************
         // ************************************************ ENEMY LIFE BAR START
@@ -172,6 +180,12 @@ public class Stage1_a_Activity extends AppCompatActivity {
         }
 
         if (currentEnemyLife == 0){
+            money = money + 50;
+            SharedPreferences.Editor editor = getSharedPreferences(ShopActivity.moneySharedPreference, MODE_PRIVATE).edit();
+            editor.putInt("money", money);
+            editor.commit();
+            editor.apply();
+
             missionCompletePopUp.setVisibility(View.VISIBLE);
         }
 

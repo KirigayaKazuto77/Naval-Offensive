@@ -1,20 +1,39 @@
 package com.test.helloworld;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ShopActivity extends AppCompatActivity {
 
     private ImageButton backButton, missile1, missile2, missile4, gun1, gun2, gun3, autocannon1, autocannon2;
+    private TextView displayMoney;
+    private String displayMoneyShop;
+    private int money;
+
+    public static String moneySharedPreference = "moneyVariable";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
+
+        displayMoney = findViewById(R.id.money);
+
+        //******************************************************************************************
+        //****************************************************************** SHAREDPREFERENCE INITIALIZATION START
+        SharedPreferences sharedPreferences = getSharedPreferences(moneySharedPreference, MODE_PRIVATE);
+        money = sharedPreferences.getInt("money", 0);
+        displayMoneyShop = String.valueOf(money);
+        displayMoney.setText(displayMoneyShop);
+        //****************************************************************** SHAREDPREFERENCE INITIALIZATION END
+        //******************************************************************************************
 
         //******************************************************************************************
         //****************************************************************** IMAGE BUTTON INITIALIZATION START
