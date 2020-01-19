@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+
+    <item android:drawable="@drawable/gunfire_fx_1"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_2"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_3"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_4"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_5"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_6"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_7"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_8"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_9"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_10"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_11"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_12"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_13"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_14"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_15"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_16"
+        android:duration="10"/>
+    <item android:drawable="@drawable/gunfire_fx_17"
+        android:duration="10"/>
+
+</animation-list>
