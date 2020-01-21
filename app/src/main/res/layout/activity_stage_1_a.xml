@@ -11,14 +11,159 @@
         android:background="@drawable/prologue_bg"
         android:scaleType="centerCrop" />
 
+    <RelativeLayout
+        android:layout_width="620dp"
+        android:layout_height="300dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="120dp"
+        android:id="@+id/player_ship">
+
+        <RelativeLayout
+            android:layout_width="210dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="325dp"
+            android:layout_marginTop="85dp"
+            android:id="@+id/gun_turret">
+            <ImageView
+                android:src="@drawable/gun_turret"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+            </ImageView>
+            <ImageView
+                android:id="@+id/gunfire_effect"
+                android:src="@drawable/gunfire_fx_1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="32dp"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <ImageView
+            android:src="@drawable/ship_body"
+            android:layout_width="700dp"
+            android:layout_height="200dp"
+            android:layout_alignParentBottom="true"/>
+
+        <RelativeLayout
+            android:layout_width="67dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="115dp"
+            android:layout_marginTop="87dp"
+            android:visibility="gone"
+            android:id="@+id/secondary_gun_first">
+            <ImageView
+                android:src="@drawable/secondary_gun"
+                android:layout_width="47dp"
+                android:layout_height="70dp"/>
+            <ImageView
+                android:id="@+id/secondary_gunfire_effect"
+                android:src="@drawable/gunfire_fx_1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="12dp"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="67dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="170dp"
+            android:layout_marginTop="97dp"
+            android:visibility="gone"
+            android:id="@+id/secondary_gun_second">
+            <ImageView
+                android:src="@drawable/secondary_gun"
+                android:layout_width="47dp"
+                android:layout_height="70dp"/>
+            <ImageView
+                android:id="@+id/secondary_gunfire_effect_second"
+                android:src="@drawable/gunfire_fx_1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="12dp"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <ImageView
+            android:src="@drawable/missilelauncher1"
+            android:layout_width="67dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="279dp"
+            android:layout_marginTop="130dp"
+            android:visibility="gone"
+            android:id="@+id/missile_launcher_1"/>
+
+        <ImageView
+            android:src="@drawable/missilelauncher2"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="270dp"
+            android:layout_marginTop="128dp"
+            android:visibility="gone"
+            android:id="@+id/missile_launcher_2"/>
+
+        <ImageView
+            android:src="@drawable/missilelauncher4"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="270dp"
+            android:layout_marginTop="120dp"
+            android:visibility="gone"
+            android:id="@+id/missile_launcher_4"/>
+
+        <ImageView
+            android:src="@drawable/explosion_fx_1"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginLeft="180dp"
+            android:layout_marginTop="120dp"
+            android:visibility="gone"
+            android:id="@+id/ship_player_fx"/>
+
+    </RelativeLayout>
+
     <ImageView
-        android:src="@drawable/target_ship"
-        android:layout_width="200dp"
+        android:src="@drawable/harpoon_missile"
+        android:layout_width="70dp"
+        android:layout_height="290dp"
+        android:layout_marginLeft="270dp"
+        android:layout_marginTop="130dp"
+        android:visibility="gone"
+        android:id="@+id/harpoon_missile"/>
+
+    <RelativeLayout
+        android:layout_width="300dp"
         android:layout_height="130dp"
-        android:layout_marginLeft="500dp"
-        android:layout_marginTop="100dp"
-        android:id="@+id/target_ship">
-    </ImageView>
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="80dp">
+        <ImageView
+            android:src="@drawable/enemy_ship_1"
+            android:layout_width="200dp"
+            android:layout_height="130dp"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:id="@+id/target_ship_1"/>
+        <ImageView
+            android:src="@drawable/enemy_ship_2"
+            android:layout_width="250dp"
+            android:layout_height="130dp"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:id="@+id/target_ship_2"/>
+        <ImageView
+            android:src="@drawable/explosion_fx_1"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:id="@+id/explosion_fx"/>
+    </RelativeLayout>
 
     <ImageButton
         android:layout_width="60dp"
@@ -61,7 +206,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="-2.5dp"
                 android:textStyle="bold"
-                android:id="@+id/currentAngleText"/>
+                android:id="@+id/currentEnemyLifeText"/>
         </RelativeLayout>
 
         <TextView
@@ -152,70 +297,46 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="260dp"
+        android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
-        android:layout_marginRight="270dp"
+        android:layout_marginRight="255dp"
         android:background="@drawable/lifebar_bg">
 
         <ProgressBar
             android:id="@+id/player_life_bar"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="200dp"
+            android:layout_width="176dp"
             android:layout_height="10dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginLeft="43dp"
+            android:layout_marginTop="28dp"
             android:indeterminate="false"
             android:progress="100"
             android:progressDrawable="@drawable/lifebar"
             android:thumb="@drawable/lifebar_button" />
-    </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="230dp"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="80dp"
-        android:id="@+id/player_ship">
-
-        <RelativeLayout
-            android:layout_width="400dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="-80dp"
-            android:layout_marginTop="80dp"
-            android:id="@+id/gun_turret">
-
-            <ImageView
-                android:src="@drawable/gun_turret"
-                android:layout_width="400dp"
-                android:layout_height="230dp"
-                android:layout_marginRight="50dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true">
-            </ImageView>
-
-            <ImageView
-                android:id="@+id/gunfire_effect"
-                android:src="@drawable/gunfire_fx_1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="centerCrop"
-                android:layout_marginTop="32dp"
-                android:layout_alignParentRight="true"/>
-        </RelativeLayout>
-
-        <ImageView
-            android:src="@drawable/gun_cupola"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:layout_marginLeft="0dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerVertical="true">
-        </ImageView>
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text="0"
+            android:textSize="30sp"
+            android:layout_marginTop="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/remaining_missiles"/>
 
     </RelativeLayout>
+
+    <ImageView
+        android:src="@drawable/harpoon_missile_impact"
+        android:layout_width="20dp"
+        android:layout_height="250dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="150dp"
+        android:layout_marginTop="-270dp"
+        android:id="@+id/harpoon_missile_impact"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -338,10 +459,10 @@
                 android:scaleType="fitCenter"
                 android:layout_marginTop="20dp"
                 android:background="@null"
-                android:src="@drawable/next_level"
+                android:src="@drawable/levels_button"
                 android:layout_below="@+id/complete_label"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/nextLevel_button"/>
+                android:id="@+id/campaignList_button"/>
 
             <ImageButton
                 android:onClick="toMainMenu"
@@ -352,7 +473,7 @@
                 android:background="@null"
                 android:src="@drawable/mainmenu_button"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/nextLevel_button"
+                android:layout_below="@+id/campaignList_button"
                 android:id="@+id/success_mainmenu_button"/>
 
             <ImageButton
@@ -409,7 +530,7 @@
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:scaleType="fitCenter"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
                 android:background="@null"
                 android:src="@drawable/try_again_button"
                 android:layout_below="@+id/failed_label"
@@ -417,15 +538,26 @@
                 android:id="@+id/tryAgain_button"/>
 
             <ImageButton
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="-10dp"
+                android:background="@null"
+                android:src="@drawable/levels_button"
+                android:layout_below="@+id/tryAgain_button"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/failed_campaignList_button"/>
+
+            <ImageButton
                 android:onClick="toMainMenu"
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:scaleType="fitCenter"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="0dp"
                 android:background="@null"
                 android:src="@drawable/mainmenu_button"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/tryAgain_button"
+                android:layout_below="@+id/failed_campaignList_button"
                 android:id="@+id/failed_mainmenu_button"/>
 
             <ImageButton
@@ -433,7 +565,7 @@
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:scaleType="fitCenter"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="-10dp"
                 android:background="@null"
                 android:src="@drawable/quit_button"
                 android:layout_centerHorizontal="true"

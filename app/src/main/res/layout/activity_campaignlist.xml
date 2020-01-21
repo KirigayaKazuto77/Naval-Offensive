@@ -130,6 +130,72 @@
                 android:layout_below="@+id/campaign_stage9_button"
                 android:id="@+id/campaign_stage10_button"/>
 
+            <ImageButton
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:src="@drawable/stage_11_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/campaign_stage10_button"
+                android:id="@+id/campaign_stage11_button"/>
+
+            <ImageButton
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:src="@drawable/stage_12_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/campaign_stage11_button"
+                android:id="@+id/campaign_stage12_button"/>
+
+            <ImageButton
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:src="@drawable/stage_13_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/campaign_stage12_button"
+                android:id="@+id/campaign_stage13_button"/>
+
+            <ImageButton
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:src="@drawable/stage_14_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/campaign_stage13_button"
+                android:id="@+id/campaign_stage14_button"/>
+
+            <ImageButton
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:src="@drawable/stage_15_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/campaign_stage14_button"
+                android:id="@+id/campaign_stage15_button"/>
+
+            <ImageButton
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@null"
+                android:src="@drawable/stage_16_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/campaign_stage15_button"
+                android:id="@+id/campaign_stage16_button"/>
         </RelativeLayout>
 
     </ScrollView>

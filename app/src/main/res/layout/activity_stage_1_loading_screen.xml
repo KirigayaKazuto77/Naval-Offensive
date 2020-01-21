@@ -3,9 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loadingscreen_1"
     android:orientation="horizontal"
     tools:context=".Stage1_Loading_Activity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_1"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_1"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_2"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_2"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_3"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_3"/>
 
     <ProgressBar
         android:layout_width="60dp"

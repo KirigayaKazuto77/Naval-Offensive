@@ -1,13 +1,18 @@
 package com.test.helloworld;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Stage1_Loading_Activity extends AppCompatActivity {
+
+    private int chosenlevel;
+    private ImageView loadingScreenBG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -21,6 +26,27 @@ public class Stage1_Loading_Activity extends AppCompatActivity {
         final Intent loading_sound=new Intent(this, LoadingSoundService.class);
         startService(loading_sound);
 
+
+        //******************************************************************************************
+        //****************************************************************** SHAREDPREFERENCES INITIALIZATION START
+        SharedPreferences levelsharedPreferences = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE);
+        chosenlevel = levelsharedPreferences.getInt("chosenlevel", 0);
+
+        if (chosenlevel == 1){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_1);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        if (chosenlevel == 2){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_2);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        if (chosenlevel == 3){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_3);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        //****************************************************************** SHAREDPREFERENCES INITIALIZATION END
+        //******************************************************************************************
+
         Fade enterTransition = new Fade();
         enterTransition.setDuration(getResources().getInteger(R.integer.transition_duration));
         getWindow().setEnterTransition(enterTransition);
@@ -30,7 +56,7 @@ public class Stage1_Loading_Activity extends AppCompatActivity {
             @Override
             public void run(){
                 try{
-                    sleep(10000);
+                    sleep(3000);
                 }
                 catch (Exception e){
                     e.printStackTrace();

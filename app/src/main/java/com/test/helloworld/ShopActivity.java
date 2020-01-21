@@ -32,7 +32,7 @@ public class ShopActivity extends AppCompatActivity {
         //******************************************************************************************
         //****************************************************************** SHAREDPREFERENCE INITIALIZATION START
         SharedPreferences sharedPreferences = getSharedPreferences(moneySharedPreference, MODE_PRIVATE);
-        money = sharedPreferences.getInt("money", 1000);
+        money = sharedPreferences.getInt("money", 10000);
         missile = sharedPreferences.getInt("missile", 0);
         gun = sharedPreferences.getInt("gun", 10000);
         autocannon = sharedPreferences.getInt("autocannon", 0);
@@ -169,15 +169,14 @@ public class ShopActivity extends AppCompatActivity {
     public void buyMissile1(){
         if(money >= 100) {
             missile1.setVisibility(View.GONE);
-            missile = missile + 1;
             money = money - 100;
             SharedPreferences.Editor editor = getSharedPreferences(moneySharedPreference, MODE_PRIVATE).edit();
             editor.putInt("money", money);
-            editor.putInt("missile", missile);
+            editor.putInt("missile", 1);
             editor.commit();
             editor.apply();
 
-            Toast.makeText(this, "Missiles: " + missile, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Missiles: " + 1, Toast.LENGTH_LONG).show();
 
             displayMoneyShop = String.valueOf(money);
             displayMoney.setText(displayMoneyShop);
@@ -190,15 +189,14 @@ public class ShopActivity extends AppCompatActivity {
     public void buyMissile2(){
         if(money >= 200) {
             missile2.setVisibility(View.GONE);
-            missile = missile + 1;
             money = money - 200;
             SharedPreferences.Editor editor = getSharedPreferences(moneySharedPreference, MODE_PRIVATE).edit();
-            editor.putInt("missile", missile);
+            editor.putInt("missile", 2);
             editor.putInt("money", money);
             editor.commit();
             editor.apply();
 
-            Toast.makeText(this, "Missiles: " + missile, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Missiles: " + 2, Toast.LENGTH_LONG).show();
 
             displayMoneyShop = String.valueOf(money);
             displayMoney.setText(displayMoneyShop);
@@ -212,15 +210,14 @@ public class ShopActivity extends AppCompatActivity {
         if(money >= 400) {
             missile4.setAlpha(0.5f);
             missile4.setEnabled(false);
-            missile = missile + 2;
             money = money - 400;
             SharedPreferences.Editor editor = getSharedPreferences(moneySharedPreference, MODE_PRIVATE).edit();
-            editor.putInt("missile", missile);
+            editor.putInt("missile", 4);
             editor.putInt("money", money);
             editor.commit();
             editor.apply();
 
-            Toast.makeText(this, "Missiles: " + missile, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Missiles: " + 4, Toast.LENGTH_LONG).show();
 
             displayMoneyShop = String.valueOf(money);
             displayMoney.setText(displayMoneyShop);

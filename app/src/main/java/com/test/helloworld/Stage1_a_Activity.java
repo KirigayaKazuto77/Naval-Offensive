@@ -26,21 +26,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Stage1_a_Activity extends AppCompatActivity {
 
-    private ImageButton pauseButton, resumeButton, restartButton, mainmenuButton, quitButton, fireButton, successToMainMenu, successToQuit;
+    private ImageButton pauseButton, resumeButton, restartButton, mainmenuButton, quitButton, fireButton, successToMainMenu,
+            levels_button, successToQuit, missileButton, tryAgainButton, failedCampaignListButton, failedToMainMenuButton,
+            failedToQuitButton;
     private RelativeLayout pauseMenu, missionCompletePopUp, shipBody;
     private AudioManager audioManager;
     private NumberPicker firingAngle;
-    private int money, gun, missile, autocannon, currentAngle, currentEnemyLife = 100, currentPlayerLife = 100;
+    private int money, gun, missile, autocannon, currentAngle, currentEnemyLife, currentPlayerLife = 200, remainingMissile,
+                enemyDamage, upperAngle, lowerAngle;
+    private double enemyDistance;
 
-    private CountDownTimer mCountDownTimer, enemyTimer, autocannonTimer;
-    private long mTimeLeftInMillis, shopReload, enemyReloadTime = 5000, autocannonReloadTime = 5000;
-    private TextView mTextViewCountDown, currentEnemyLifeDisplay;
+    private CountDownTimer mCountDownTimer, enemyTimer, autocannonTimer, missileReloadTime, missileLaunchAnim;
+    private long mTimeLeftInMillis, shopReload, enemyReloadTime, getEnemyReloadTimeRestart, autocannonReloadTime = 5000,
+                 missileReloadTimeDuration = 3000;
+    private TextView mTextViewCountDown, currentEnemyLifeDisplay, remainingMissilesDisplay, missileReloadDisplay,
+                        enemyDistanceDisplay;
 
     private ProgressBar enemyLifeBar, playerLifeBar;
-    private RelativeLayout gunTurret, mission_failed_popup;
-    private ImageView targetShip, gunfire_effect;
+    private RelativeLayout gunTurret, mission_failed_popup, firstSecondaryGun, secondSecondaryGun;
+    private ImageView gunfire_effect, harpoonMissile, harpoonMissileImpact, targetShip, secondaryGunEffect, secondSecondaryGunEffect,
+            missileLauncher, playerShipExplosion;
 
-    private int levelMilestone, chosenlevel, levelContUnlocked;
+    private int chosenlevel;
+
+    private MediaPlayer autocannonSFX, enemyAttackSFX;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +58,16 @@ public class Stage1_a_Activity extends AppCompatActivity {
 
         hideNavBar();
 
-        gunTurret = findViewById(R.id.gun_turret);
-        missionCompletePopUp = findViewById(R.id.success_popup);
-        mission_failed_popup = findViewById(R.id.failed_popup);
-        shipBody = findViewById(R.id.player_ship);
-        targetShip = findViewById(R.id.target_ship);
+        enemyDistanceDisplay = findViewById(R.id.target_distance);
+        // ***************************************************************************
+        // ************************************************ ENEMY LIFE BAR START
+        enemyLifeBar = findViewById(R.id.target_life_points);
 
-        slideUp();
-
-        currentEnemyLifeDisplay = findViewById(R.id.currentAngleText);
-        currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
+        playerLifeBar = findViewById(R.id.player_life_bar);
+        playerLifeBar.setMax(200);
+        playerLifeBar.setProgress(currentPlayerLife);
+        // ************************************************ ENEMY LIFE BAR END
+        // ***************************************************************************
 
         //******************************************************************************************
         //****************************************************************** SHAREDPREFERENCES INITIALIZATION START
@@ -68,23 +77,122 @@ public class Stage1_a_Activity extends AppCompatActivity {
         missile = sharedPreferences.getInt("missile", 0);
         autocannon = sharedPreferences.getInt("autocannon", 0);
 
+        if (autocannon == 5){
+            firstSecondaryGun = findViewById(R.id.secondary_gun_first);
+            firstSecondaryGun.setVisibility(View.VISIBLE);
+        }
+
+        if (autocannon == 10){
+            firstSecondaryGun = findViewById(R.id.secondary_gun_first);
+            firstSecondaryGun.setVisibility(View.VISIBLE);
+
+            secondSecondaryGun = findViewById(R.id.secondary_gun_second);
+            secondSecondaryGun.setVisibility(View.VISIBLE);
+        }
+
+        if (missile == 1){
+            missileLauncher = findViewById(R.id.missile_launcher_1);
+            missileLauncher.setVisibility(View.VISIBLE);
+        }
+
+        if (missile == 2){
+            missileLauncher = findViewById(R.id.missile_launcher_2);
+            missileLauncher.setVisibility(View.VISIBLE);
+        }
+
+        if (missile == 4){
+            missileLauncher = findViewById(R.id.missile_launcher_4);
+            missileLauncher.setVisibility(View.VISIBLE);
+        }
+
         shopReload = gun;
         mTimeLeftInMillis = shopReload;
+
+
+        SharedPreferences levelsharedPreferences = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE);
+        chosenlevel = levelsharedPreferences.getInt("chosenlevel", 0);
+
+        if (chosenlevel == 1){
+            targetShip = findViewById(R.id.target_ship_1);
+            targetShip.setVisibility(View.VISIBLE);
+
+            currentEnemyLife = 100;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            getEnemyReloadTimeRestart = 10000;
+            enemyReloadTime = 10000;
+            enemyDamage = 0;
+
+            enemyDistance = 8;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance) + " Km");
+
+            double exact_angle = (enemyDistance * 45) / 20;
+            upperAngle = (int)exact_angle + 2;
+            lowerAngle = (int)exact_angle - 2;
+        }
+
+        if (chosenlevel == 2){
+            targetShip = findViewById(R.id.target_ship_2);
+            targetShip.setVisibility(View.VISIBLE);
+
+            currentEnemyLife = 120;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            getEnemyReloadTimeRestart = 10000;
+            enemyReloadTime = 10000;
+            enemyDamage = 2;
+
+            enemyDistance = 8;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance) + " Km");
+
+            double exact_angle = (enemyDistance * 45) / 20;
+            upperAngle = (int)exact_angle + 2;
+            lowerAngle = (int)exact_angle - 2;
+        }
+
         //****************************************************************** SHAREDPREFERENCES INITIALIZATION END
         //******************************************************************************************
 
-        // ***************************************************************************
-        // ************************************************ ENEMY LIFE BAR START
-        enemyLifeBar = findViewById(R.id.target_life_points);
-        enemyLifeBar.setMax(100);
-        enemyLifeBar.setProgress(currentEnemyLife);
+        gunTurret = findViewById(R.id.gun_turret);
+        missionCompletePopUp = findViewById(R.id.success_popup);
+        mission_failed_popup = findViewById(R.id.failed_popup);
+        shipBody = findViewById(R.id.player_ship);
 
-        playerLifeBar = findViewById(R.id.player_life_bar);
-        playerLifeBar.setMax(100);
-        playerLifeBar.setProgress(currentPlayerLife);
-        // ************************************************ ENEMY LIFE BAR END
-        // ***************************************************************************
-        // ************************************************ PAUSE BUTTON START
+        slideUp();
+
+        currentEnemyLifeDisplay = findViewById(R.id.currentEnemyLifeText);
+        currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
+
+        //******************************************************************************************
+        //****************************************************************** MISSILE BUTTON START
+        missileButton = findViewById(R.id.missile_button);
+        missileReloadDisplay = findViewById(R.id.missile_reload_time);
+
+        remainingMissile = missile;
+        remainingMissilesDisplay = findViewById(R.id.remaining_missiles);
+        remainingMissilesDisplay.setText(String.valueOf(remainingMissile));
+
+        if (remainingMissile <= 0){
+            missileButton.setAlpha(0.5f);
+            missileButton.setEnabled(false);
+        }
+
+        missileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                remainingMissile = remainingMissile - 1;
+                remainingMissilesDisplay.setText(String.valueOf(remainingMissile));
+                missileFire();
+                missileReload();
+            }
+        });
+        //****************************************************************** MISSILE BUTTON END
+        //******************************************************************************************
+
+        // *****************************************************************************************
+        // ***************************************************************** PAUSE BUTTON START
         pauseMenu = findViewById(R.id.pause_menu);
 
         pauseButton = findViewById(R.id.pause_button);
@@ -94,8 +202,8 @@ public class Stage1_a_Activity extends AppCompatActivity {
                 showPauseMenu();
             }
         });
-        // ************************************************ PAUSE BUTTON END
-        // ***************************************************************************
+        // ***************************************************************** PAUSE BUTTON END
+        // *****************************************************************************************
         // ************************************************ ANGLE PICKER START
         firingAngle = findViewById(R.id.angle_fire);
         firingAngle.setMaxValue(45);
@@ -123,6 +231,7 @@ public class Stage1_a_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 fireButtonClicked();
                 startTimer();
+                missileExplosionAnim();
                 gunfire_effect_animation();
             }
         });
@@ -145,6 +254,8 @@ public class Stage1_a_Activity extends AppCompatActivity {
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                currentPlayerLife = 0;
+                currentEnemyLife = 0;
                 restartStage1();
             }
         });
@@ -153,6 +264,8 @@ public class Stage1_a_Activity extends AppCompatActivity {
         mainmenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                currentPlayerLife = 0;
+                currentEnemyLife = 0;
                 toMainMenu();
             }
         });
@@ -169,12 +282,62 @@ public class Stage1_a_Activity extends AppCompatActivity {
         successToMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                currentPlayerLife = 0;
+                currentEnemyLife = 0;
                 toMainMenu();
             }
         });
 
         successToQuit = findViewById(R.id.success_quit_button);
         successToQuit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quitGame();
+            }
+        });
+
+        levels_button = findViewById(R.id.campaignList_button);
+        levels_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentPlayerLife = 0;
+                currentEnemyLife = 0;
+                openCampaignList();
+            }
+        });
+
+        tryAgainButton = findViewById(R.id.tryAgain_button);
+        tryAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentPlayerLife = 0;
+                currentEnemyLife = 0;
+                restartStage1();
+            }
+        });
+
+        failedCampaignListButton = findViewById(R.id.failed_campaignList_button);
+        failedCampaignListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentPlayerLife = 0;
+                currentEnemyLife = 0;
+                openCampaignList();
+            }
+        });
+
+        failedToMainMenuButton = findViewById(R.id.failed_mainmenu_button);
+        failedToMainMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentPlayerLife = 0;
+                currentEnemyLife = 0;
+                toMainMenu();
+            }
+        });
+
+        failedToQuitButton = findViewById(R.id.failed_quit_button);
+        failedToQuitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 quitGame();
@@ -193,6 +356,7 @@ public class Stage1_a_Activity extends AppCompatActivity {
         }
         // ************************************************ AUTOCANNON END
         // ***************************************************************************
+
     }
 
     @Override
@@ -212,6 +376,8 @@ public class Stage1_a_Activity extends AppCompatActivity {
         );
     }
 
+    // *********************************************************************************************
+    // ********************************************************************** MAIN GUN START
     public void fireButtonClicked() {
         MediaPlayer soundfx = MediaPlayer.create(Stage1_a_Activity.this, R.raw.naval_gun_sfx);
         soundfx.start();
@@ -224,17 +390,32 @@ public class Stage1_a_Activity extends AppCompatActivity {
         }
 
         if (currentEnemyLife <= 0){
-            money = money + 50;
+
+            if (chosenlevel <= 4){
+                money = money + 80;
+            }
+            else if (chosenlevel <= 8 && chosenlevel >= 5){
+                money = money + 105;
+            }
+            else if (chosenlevel <= 12 && chosenlevel >= 9){
+                money = money + 145;
+            }
+            else if (chosenlevel <= 16 && chosenlevel >= 13){
+                money = money + 190;
+            }
             SharedPreferences.Editor editor = getSharedPreferences(ShopActivity.moneySharedPreference, MODE_PRIVATE).edit();
             editor.putInt("money", money);
             editor.commit();
             editor.apply();
+
+            targetShip.setVisibility(View.GONE);
 
             firingAngle.setEnabled(false);
             pauseButton.setEnabled(false);
             fireButton.setEnabled(false);
             fireButton.setAlpha(0.5f);
             setLevelMilestone();
+            missileExplosionAnim();
             missionCompletePopUp.setVisibility(View.VISIBLE);
         }
 
@@ -274,34 +455,82 @@ public class Stage1_a_Activity extends AppCompatActivity {
         String timeLeftFormatted = String.format("%02d", seconds);
         mTextViewCountDown.setText(timeLeftFormatted);
     }
+    // ********************************************************************** MAIN GUN END
+    // *********************************************************************************************
 
     // *********************************************************************************************
-    // ********************************************************************** AUTOCANNON START
-    public void autocannonFunction(){
-        autocannonTimer = new CountDownTimer(autocannonReloadTime, 1000) {
+    // ********************************************************************** MISSILE START
+    public void missileFire(){
+        MediaPlayer soundfx = MediaPlayer.create(Stage1_a_Activity.this, R.raw.missile_launch_sfx);
+        soundfx.start();
+
+        harpoonMissile = findViewById(R.id.harpoon_missile);
+        harpoonMissile.setVisibility(View.VISIBLE);
+
+        Animation missileAnim = AnimationUtils.loadAnimation(this, R.anim.missile_launch);
+        harpoonMissile.startAnimation(missileAnim);
+
+        missileLaunchAnim = new CountDownTimer(1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                enemyReloadTime = millisUntilFinished;
             }
 
             @Override
             public void onFinish() {
-                currentEnemyLife = currentEnemyLife - autocannon;
-                currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
+                harpoonMissile.setVisibility(View.GONE);
+                missileImpactAnim();
+            }
+        }.start();
 
-                MediaPlayer soundfx = MediaPlayer.create(Stage1_a_Activity.this, R.raw.autocannon_sfx);
-                soundfx.start();
+    }
 
-                enemyLifeBar.setProgress(currentEnemyLife);
-                autocannonRestart();
+    public void missileImpactAnim(){
+        harpoonMissileImpact = findViewById(R.id.harpoon_missile_impact);
+        Animation missileImpactAnim = AnimationUtils.loadAnimation(this, R.anim.missile_impact);
+        harpoonMissileImpact.startAnimation(missileImpactAnim);
+
+        missileLaunchAnim = new CountDownTimer(1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                harpoonMissileImpact.setVisibility(View.GONE);
+                missileImpact();
+                missileExplosionAnim();
             }
         }.start();
     }
 
-    public void autocannonRestart(){
-        autocannonReloadTime = 500;
+    public void missileImpact(){
+        MediaPlayer soundfx = MediaPlayer.create(Stage1_a_Activity.this, R.raw.impact_sfx);
+        soundfx.start();
+
+        currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
+        currentEnemyLife = currentEnemyLife - 30;
 
         if (currentEnemyLife <= 0){
+
+            if (chosenlevel <= 4){
+                money = money + 80;
+            }
+            else if (chosenlevel <= 8 && chosenlevel >= 5){
+                money = money + 105;
+            }
+            else if (chosenlevel <= 12 && chosenlevel >= 9){
+                money = money + 145;
+            }
+            else if (chosenlevel <= 16 && chosenlevel >= 13){
+                money = money + 190;
+            }
+            SharedPreferences.Editor editor = getSharedPreferences(ShopActivity.moneySharedPreference, MODE_PRIVATE).edit();
+            editor.putInt("money", money);
+            editor.commit();
+            editor.apply();
+
+            targetShip.setVisibility(View.GONE);
+
             firingAngle.setEnabled(false);
             pauseButton.setEnabled(false);
             fireButton.setEnabled(false);
@@ -309,8 +538,147 @@ public class Stage1_a_Activity extends AppCompatActivity {
             setLevelMilestone();
             missionCompletePopUp.setVisibility(View.VISIBLE);
         }
+
+        currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
+        enemyLifeBar.setProgress(currentEnemyLife);
+    }
+
+    public void missileReload(){
+        missileButton.setAlpha(0.5f);
+        missileButton.setEnabled(false);
+        missileReloadDisplay.setVisibility(View.VISIBLE);
+
+        missileReloadTime = new CountDownTimer(missileReloadTimeDuration = 3000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                updateMissileCounter();
+                missileReloadTimeDuration = millisUntilFinished;
+            }
+
+            @Override
+            public void onFinish() {
+                missileReloadDisplay.setVisibility(View.GONE);
+                if (remainingMissile <= 0){
+                    missileButton.setEnabled(false);
+                    missileButton.setAlpha(0.5f);
+                }else{
+                    missileButton.setAlpha(1f);
+                    missileButton.setEnabled(true);
+                    missileReloadRestart();
+                }
+            }
+        }.start();
+    }
+
+    public void missileReloadRestart(){
+        missileReloadTimeDuration = 3000;
+    }
+
+    public void updateMissileCounter(){
+        int seconds = (int) (missileReloadTimeDuration / 1000);
+
+        String timeLeftFormatted = String.format("%02d", seconds);
+        missileReloadDisplay.setText(timeLeftFormatted);
+    }
+    // ********************************************************************** MISSILE END
+    // *********************************************************************************************
+
+    // *********************************************************************************************
+    // ********************************************************************** AUTOCANNON START
+    public void autocannonFunction(){
+        if (currentEnemyLife <= 0){
+
+            if (chosenlevel <= 4){
+                money = money + 80;
+            }
+            else if (chosenlevel <= 8 && chosenlevel >= 5){
+                money = money + 105;
+            }
+            else if (chosenlevel <= 12 && chosenlevel >= 9){
+                money = money + 145;
+            }
+            else if (chosenlevel <= 16 && chosenlevel >= 13){
+                money = money + 190;
+            }
+            SharedPreferences.Editor editor = getSharedPreferences(ShopActivity.moneySharedPreference, MODE_PRIVATE).edit();
+            editor.putInt("money", money);
+            editor.commit();
+            editor.apply();
+
+            targetShip.setVisibility(View.GONE);
+
+            firingAngle.setEnabled(false);
+            pauseButton.setEnabled(false);
+            fireButton.setEnabled(false);
+            fireButton.setAlpha(0.5f);
+            setLevelMilestone();
+
+            missileExplosionAnim();
+            missionCompletePopUp.setVisibility(View.VISIBLE);
+        }
         else {
-            autocannonFunction();
+            autocannonTimer = new CountDownTimer(autocannonReloadTime, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    autocannonReloadTime = millisUntilFinished;
+                }
+
+                @Override
+                public void onFinish() {
+                    if (currentPlayerLife <= 0){
+                        firingAngle.setEnabled(false);
+                        pauseButton.setEnabled(false);
+                        fireButton.setEnabled(false);
+                        fireButton.setAlpha(0.5f);
+                        mission_failed_popup.setVisibility(View.VISIBLE);
+                    }
+                    else if(currentEnemyLife <= 0){
+
+                        if (chosenlevel <= 4){
+                            money = money + 80;
+                        }
+                        else if (chosenlevel <= 8 && chosenlevel >= 5){
+                            money = money + 105;
+                        }
+                        else if (chosenlevel <= 12 && chosenlevel >= 9){
+                            money = money + 145;
+                        }
+                        else if (chosenlevel <= 16 && chosenlevel >= 13){
+                            money = money + 190;
+                        }
+                        SharedPreferences.Editor editor = getSharedPreferences(ShopActivity.moneySharedPreference, MODE_PRIVATE).edit();
+                        editor.putInt("money", money);
+                        editor.commit();
+                        editor.apply();
+
+                        targetShip.setVisibility(View.GONE);
+
+                        firingAngle.setEnabled(false);
+                        pauseButton.setEnabled(false);
+                        fireButton.setEnabled(false);
+                        fireButton.setAlpha(0.5f);
+                        setLevelMilestone();
+
+                        missileExplosionAnim();
+                        missionCompletePopUp.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        currentEnemyLife = currentEnemyLife - autocannon;
+                        currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
+
+                        autocannonSFX = MediaPlayer.create(Stage1_a_Activity.this, R.raw.autocannon_sfx);
+                        autocannonSFX.start();
+
+                        autocannon_fx_anim();
+                        autocannon2_fx_anim();
+
+                        enemyLifeBar.setProgress(currentEnemyLife);
+
+                        autocannonReloadTime = 5000;
+                        autocannonFunction();
+                    }
+                }
+            }.start();
         }
     }
     // ********************************************************************** AUTOCANNON END
@@ -318,24 +686,6 @@ public class Stage1_a_Activity extends AppCompatActivity {
     // *********************************************************************************************
     // ********************************************************************** ENEMY ATTACK START
     public void enemyAutomaticAttack(){
-        enemyTimer = new CountDownTimer(enemyReloadTime, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                enemyReloadTime = millisUntilFinished;
-            }
-
-            @Override
-            public void onFinish() {
-                currentPlayerLife = currentPlayerLife - 1;
-                playerLifeBar.setProgress(currentPlayerLife);
-                resetenemyFireTimer();
-            }
-        }.start();
-    }
-
-    public void resetenemyFireTimer(){
-        enemyReloadTime = 2000;
-
         if (currentPlayerLife <= 0){
             firingAngle.setEnabled(false);
             pauseButton.setEnabled(false);
@@ -343,8 +693,96 @@ public class Stage1_a_Activity extends AppCompatActivity {
             fireButton.setAlpha(0.5f);
             mission_failed_popup.setVisibility(View.VISIBLE);
         }
+        else if(currentEnemyLife <= 0){
+
+            if (chosenlevel <= 4){
+                money = money + 80;
+            }
+            else if (chosenlevel <= 8 && chosenlevel >= 5){
+                money = money + 105;
+            }
+            else if (chosenlevel <= 12 && chosenlevel >= 9){
+                money = money + 145;
+            }
+            else if (chosenlevel <= 16 && chosenlevel >= 13){
+                money = money + 190;
+            }
+            SharedPreferences.Editor editor = getSharedPreferences(ShopActivity.moneySharedPreference, MODE_PRIVATE).edit();
+            editor.putInt("money", money);
+            editor.commit();
+            editor.apply();
+
+            targetShip.setVisibility(View.GONE);
+
+            firingAngle.setEnabled(false);
+            pauseButton.setEnabled(false);
+            fireButton.setEnabled(false);
+            fireButton.setAlpha(0.5f);
+            setLevelMilestone();
+
+            missileExplosionAnim();
+            missionCompletePopUp.setVisibility(View.VISIBLE);
+        }
         else {
-            enemyAutomaticAttack();
+            enemyTimer = new CountDownTimer(enemyReloadTime, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    enemyReloadTime = millisUntilFinished;
+                }
+
+                @Override
+                public void onFinish() {
+                    if (currentPlayerLife <= 0){
+                        firingAngle.setEnabled(false);
+                        pauseButton.setEnabled(false);
+                        fireButton.setEnabled(false);
+                        fireButton.setAlpha(0.5f);
+                        mission_failed_popup.setVisibility(View.VISIBLE);
+                    }
+                    else if(currentEnemyLife <= 0){
+
+                        if (chosenlevel <= 4){
+                            money = money + 80;
+                        }
+                        else if (chosenlevel <= 8 && chosenlevel >= 5){
+                            money = money + 105;
+                        }
+                        else if (chosenlevel <= 12 && chosenlevel >= 9){
+                            money = money + 145;
+                        }
+                        else if (chosenlevel <= 16 && chosenlevel >= 13){
+                            money = money + 190;
+                        }
+                        SharedPreferences.Editor editor = getSharedPreferences(ShopActivity.moneySharedPreference, MODE_PRIVATE).edit();
+                        editor.putInt("money", money);
+                        editor.commit();
+                        editor.apply();
+
+                        targetShip.setVisibility(View.GONE);
+
+                        firingAngle.setEnabled(false);
+                        pauseButton.setEnabled(false);
+                        fireButton.setEnabled(false);
+                        fireButton.setAlpha(0.5f);
+                        setLevelMilestone();
+
+                        missileExplosionAnim();
+                        missionCompletePopUp.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        currentPlayerLife = currentPlayerLife - enemyDamage;
+                        playerLifeBar.setProgress(currentPlayerLife);
+
+                        enemyAttackSFX = MediaPlayer.create(Stage1_a_Activity.this, R.raw.naval_gun_sfx);
+                        enemyAttackSFX.start();
+
+                        playerExplosionAnim();
+
+                        enemyReloadTime = getEnemyReloadTimeRestart;
+                        enemyAutomaticAttack();
+                    }
+                }
+            }.start();
         }
     }
     // ********************************************************************** ENEMY ATTACK END
@@ -414,6 +852,15 @@ public class Stage1_a_Activity extends AppCompatActivity {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
+    public void openCampaignList(){
+        MediaPlayer soundfx = MediaPlayer.create(Stage1_a_Activity.this, R.raw.button_click_sfx);
+        soundfx.start();
+
+        Intent intent_open_campaign = new Intent(Stage1_a_Activity.this, CampaignListActivity.class);
+        startActivity(intent_open_campaign);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
     public void quitGame(){
         MediaPlayer soundfx = MediaPlayer.create(Stage1_a_Activity.this, R.raw.button_click_sfx);
         soundfx.start();
@@ -431,6 +878,7 @@ public class Stage1_a_Activity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 onDestroy();
+                finish();
                 System.exit(0);
             }
         });
@@ -501,16 +949,130 @@ public class Stage1_a_Activity extends AppCompatActivity {
         gun_fire_effect_animation.start();
     }
 
+    public void autocannon_fx_anim(){
+        secondaryGunEffect = findViewById(R.id.secondary_gunfire_effect);
+        secondaryGunEffect.setRotation(90);
+        secondaryGunEffect.setImageResource(R.drawable.main_gun_effect);
+        AnimationDrawable gun_fire_effect_animation = (AnimationDrawable) secondaryGunEffect.getDrawable();
+        gun_fire_effect_animation.start();
+    }
+
+    public void autocannon2_fx_anim(){
+        secondSecondaryGunEffect = findViewById(R.id.secondary_gunfire_effect_second);
+        secondSecondaryGunEffect.setRotation(90);
+        secondSecondaryGunEffect.setImageResource(R.drawable.main_gun_effect);
+        AnimationDrawable gun_fire_effect_animation = (AnimationDrawable) secondSecondaryGunEffect.getDrawable();
+        gun_fire_effect_animation.start();
+    }
+
+    public void playerExplosionAnim(){
+        playerShipExplosion = findViewById(R.id.ship_player_fx);
+        playerShipExplosion.setVisibility(View.VISIBLE);
+        playerShipExplosion.setImageResource(R.drawable.explosion_effect);
+        AnimationDrawable playerExplosion = (AnimationDrawable) playerShipExplosion.getDrawable();
+        playerExplosion.start();
+    }
+
+    public void missileExplosionAnim(){
+        ImageView explosionImpact = findViewById(R.id.explosion_fx);
+        explosionImpact.setVisibility(View.VISIBLE);
+
+        explosionImpact.setImageResource(R.drawable.explosion_effect);
+        AnimationDrawable explosion_fx_animation = (AnimationDrawable) explosionImpact.getDrawable();
+        explosion_fx_animation.start();
+    }
+
     public void setLevelMilestone(){
-        SharedPreferences sharedPreferences = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE);
-        levelMilestone = sharedPreferences.getInt("levelMilestone", 0);
-        chosenlevel = sharedPreferences.getInt("chosenlevel", 0);
-        levelContUnlocked = sharedPreferences.getInt("levelContUnlocked", 0);
 
         if (chosenlevel == 1){
             SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
-            LevelEditor.putInt("levelMilestone", 1);
-            LevelEditor.putInt("levelContUnlocked", 2);
+            LevelEditor.putInt("level_2_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
+        }
+        else if (chosenlevel == 2){
+            SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
+            LevelEditor.putInt("level_3_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
+        }
+        else if (chosenlevel == 3){
+            SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
+            LevelEditor.putInt("level_4_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
+        }
+        else if (chosenlevel == 4){
+            SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
+            LevelEditor.putInt("level_5_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
+        }
+        else if (chosenlevel == 5){
+            SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
+            LevelEditor.putInt("level_6_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
+        }
+        else if (chosenlevel == 6){
+            SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
+            LevelEditor.putInt("level_7_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
+        }
+        else if (chosenlevel == 7){
+            SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
+            LevelEditor.putInt("level_8_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
+        }
+        else if (chosenlevel == 8){
+            SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
+            LevelEditor.putInt("level_9_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
+        }
+        else if (chosenlevel == 9){
+            SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
+            LevelEditor.putInt("level_10_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
+        }
+        else if (chosenlevel == 10){
+            SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
+            LevelEditor.putInt("level_11_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
+        }
+        else if (chosenlevel == 11){
+            SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
+            LevelEditor.putInt("level_12_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
+        }
+        else if (chosenlevel == 12){
+            SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
+            LevelEditor.putInt("level_13_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
+        }
+        else if (chosenlevel == 13){
+            SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
+            LevelEditor.putInt("level_14_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
+        }
+        else if (chosenlevel == 14){
+            SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
+            LevelEditor.putInt("level_15_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
+        }
+        else if (chosenlevel == 15){
+            SharedPreferences.Editor LevelEditor = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE).edit();
+            LevelEditor.putInt("level_16_Unlocked", 1);
+            LevelEditor.commit();
+            LevelEditor.apply();
         }
     }
 }

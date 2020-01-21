@@ -1,16 +1,22 @@
 package com.test.helloworld;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Stage1_Prologue_Activity extends AppCompatActivity {
 
     private ImageButton play_to_stage1;
     private MediaPlayer voiceOver;
+    private int chosenlevel;
+    private ImageView stage1Details,
+                        stage2Details;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +32,26 @@ public class Stage1_Prologue_Activity extends AppCompatActivity {
             }
         });
 
-        voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage1_prologue_voice);
-        voiceOver.start();
+        stage1Details = findViewById(R.id.stage1_details);
+        stage2Details = findViewById(R.id.stage2_details);
+
+        //******************************************************************************************
+        //****************************************************************** SHAREDPREFERENCES INITIALIZATION START
+        SharedPreferences levelsharedPreferences = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE);
+        chosenlevel = levelsharedPreferences.getInt("chosenlevel", 0);
+
+        if (chosenlevel == 1){
+            stage1Details.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage1_prologue_voice);
+            voiceOver.start();
+        }
+        if (chosenlevel == 2){
+            stage2Details.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage2_prologue_voice);
+            voiceOver.start();
+        }
+        //****************************************************************** SHAREDPREFERENCES INITIALIZATION END
+        //******************************************************************************************
     }
 
     @Override
