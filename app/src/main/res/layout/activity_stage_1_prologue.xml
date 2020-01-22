@@ -28,6 +28,14 @@
         android:visibility="gone"
         android:id="@+id/stage2_details"/>
 
+    <ImageView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/stage3_prologue_details"
+        android:visibility="gone"
+        android:id="@+id/stage3_details"/>
+
     <ImageButton
         android:layout_width="180dp"
         android:layout_height="70dp"

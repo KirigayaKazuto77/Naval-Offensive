@@ -1,9 +1,12 @@
 package com.test.helloworld;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -34,31 +37,40 @@ public class Stage1_a_Activity extends AppCompatActivity {
     private NumberPicker firingAngle;
     private int money, gun, missile, autocannon, currentAngle, currentEnemyLife, currentPlayerLife = 200, remainingMissile,
                 enemyDamage, upperAngle, lowerAngle;
-    private double enemyDistance;
+    private double enemyDistance1, enemyDistance2, enemyDistance3, enemyDistance4;
 
     private CountDownTimer mCountDownTimer, enemyTimer, autocannonTimer, missileReloadTime, missileLaunchAnim;
     private long mTimeLeftInMillis, shopReload, enemyReloadTime, getEnemyReloadTimeRestart, autocannonReloadTime = 5000,
                  missileReloadTimeDuration = 3000;
     private TextView mTextViewCountDown, currentEnemyLifeDisplay, remainingMissilesDisplay, missileReloadDisplay,
-                        enemyDistanceDisplay;
+                        enemyDistanceDisplay, displayReward;
 
     private ProgressBar enemyLifeBar, playerLifeBar;
     private RelativeLayout gunTurret, mission_failed_popup, firstSecondaryGun, secondSecondaryGun;
     private ImageView gunfire_effect, harpoonMissile, harpoonMissileImpact, targetShip, secondaryGunEffect, secondSecondaryGunEffect,
             missileLauncher, playerShipExplosion;
 
-    private int chosenlevel;
+    private int chosenlevel, oneQuarterLife, twoQuarterLife, threeQuarterLife,
+                oneQuarterLowerAngle, oneQuarterUpperAngle,
+                twoQuarterLowerAngle, twoQuarterUpperAngle,
+                threeQuarterLowerAngle, threeQuarterUpperAngle;
 
     private MediaPlayer autocannonSFX, enemyAttackSFX;
+    public Intent gameplay_sound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stage_1_a);
 
+        final Intent svc=new Intent(this, BackgroundSoundService.class);
+        stopService(svc);
+
         hideNavBar();
 
         enemyDistanceDisplay = findViewById(R.id.target_distance);
+        displayReward = findViewById(R.id.displayReward);
+
         // ***************************************************************************
         // ************************************************ ENEMY LIFE BAR START
         enemyLifeBar = findViewById(R.id.target_life_points);
@@ -120,16 +132,34 @@ public class Stage1_a_Activity extends AppCompatActivity {
             enemyLifeBar.setMax(currentEnemyLife);
             enemyLifeBar.setProgress(currentEnemyLife);
 
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
             getEnemyReloadTimeRestart = 10000;
             enemyReloadTime = 10000;
             enemyDamage = 0;
 
-            enemyDistance = 8;
-            enemyDistanceDisplay.setText(String.valueOf(enemyDistance) + " Km");
+            enemyDistance1 = 8;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle1 = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle1 + 2;
+            lowerAngle = (int)exact_angle1 - 2;
 
-            double exact_angle = (enemyDistance * 45) / 20;
-            upperAngle = (int)exact_angle + 2;
-            lowerAngle = (int)exact_angle - 2;
+            enemyDistance2 = 9;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 2;
+            threeQuarterLowerAngle = (int)exact_angle2 -2;
+
+            enemyDistance3 = 8;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 2;
+            twoQuarterLowerAngle = (int)exact_angle3 -2;
+
+            enemyDistance4 = 9;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 2;
+            oneQuarterLowerAngle = (int)exact_angle4 -2;
         }
 
         if (chosenlevel == 2){
@@ -140,20 +170,92 @@ public class Stage1_a_Activity extends AppCompatActivity {
             enemyLifeBar.setMax(currentEnemyLife);
             enemyLifeBar.setProgress(currentEnemyLife);
 
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
             getEnemyReloadTimeRestart = 10000;
             enemyReloadTime = 10000;
             enemyDamage = 2;
 
-            enemyDistance = 8;
-            enemyDistanceDisplay.setText(String.valueOf(enemyDistance) + " Km");
-
-            double exact_angle = (enemyDistance * 45) / 20;
+            enemyDistance1 = 8;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
             upperAngle = (int)exact_angle + 2;
             lowerAngle = (int)exact_angle - 2;
+
+            enemyDistance2 = 9;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 2;
+            threeQuarterLowerAngle = (int)exact_angle2 -2;
+
+            enemyDistance3 = 9;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 2;
+            twoQuarterLowerAngle = (int)exact_angle3 -2;
+
+            enemyDistance4 = 8;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 2;
+            oneQuarterLowerAngle = (int)exact_angle4 -2;
+        }
+        if (chosenlevel == 3){
+            targetShip = findViewById(R.id.target_ship_3);
+            targetShip.setVisibility(View.VISIBLE);
+
+            currentEnemyLife = 130;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
+            getEnemyReloadTimeRestart = 9000;
+            enemyReloadTime = 9000;
+            enemyDamage = 7;
+
+            enemyDistance1 = 8;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle + 2;
+            lowerAngle = (int)exact_angle - 2;
+
+            enemyDistance2 = 10;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 2;
+            threeQuarterLowerAngle = (int)exact_angle2 -2;
+
+            enemyDistance3 = 8;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 2;
+            twoQuarterLowerAngle = (int)exact_angle3 -2;
+
+            enemyDistance4 = 12;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 2;
+            oneQuarterLowerAngle = (int)exact_angle4 -2;
         }
 
         //****************************************************************** SHAREDPREFERENCES INITIALIZATION END
         //******************************************************************************************
+
+        if (chosenlevel == 1 || chosenlevel == 5 || chosenlevel == 9 || chosenlevel == 13){
+            gameplay_sound = new Intent(this, GamePlay_Music_1_Service.class);
+            startService(gameplay_sound);
+        }
+        else if (chosenlevel == 2 || chosenlevel == 6 || chosenlevel == 10 || chosenlevel == 14){
+            gameplay_sound = new Intent(this, GamePlay_Music_2_Service.class);
+            startService(gameplay_sound);
+        }
+        else if (chosenlevel == 3 || chosenlevel == 7 || chosenlevel == 11 || chosenlevel == 15){
+            gameplay_sound = new Intent(this, GamePlay_Music_3_Service.class);
+            startService(gameplay_sound);
+        }
+        else if (chosenlevel == 4 || chosenlevel == 8 || chosenlevel == 12 || chosenlevel == 16){
+            gameplay_sound = new Intent(this, GamePlay_Music_3_Service.class);
+            startService(gameplay_sound);
+        }
 
         gunTurret = findViewById(R.id.gun_turret);
         missionCompletePopUp = findViewById(R.id.success_popup);
@@ -231,7 +333,6 @@ public class Stage1_a_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 fireButtonClicked();
                 startTimer();
-                missileExplosionAnim();
                 gunfire_effect_animation();
             }
         });
@@ -256,6 +357,7 @@ public class Stage1_a_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 currentPlayerLife = 0;
                 currentEnemyLife = 0;
+                stopService(gameplay_sound);
                 restartStage1();
             }
         });
@@ -266,6 +368,8 @@ public class Stage1_a_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 currentPlayerLife = 0;
                 currentEnemyLife = 0;
+                stopService(gameplay_sound);
+                startService(svc);
                 toMainMenu();
             }
         });
@@ -284,6 +388,8 @@ public class Stage1_a_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 currentPlayerLife = 0;
                 currentEnemyLife = 0;
+                stopService(gameplay_sound);
+                startService(svc);
                 toMainMenu();
             }
         });
@@ -302,6 +408,8 @@ public class Stage1_a_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 currentPlayerLife = 0;
                 currentEnemyLife = 0;
+                stopService(gameplay_sound);
+                startService(svc);
                 openCampaignList();
             }
         });
@@ -312,6 +420,8 @@ public class Stage1_a_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 currentPlayerLife = 0;
                 currentEnemyLife = 0;
+                stopService(gameplay_sound);
+                startService(svc);
                 restartStage1();
             }
         });
@@ -322,6 +432,8 @@ public class Stage1_a_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 currentPlayerLife = 0;
                 currentEnemyLife = 0;
+                stopService(gameplay_sound);
+                startService(svc);
                 openCampaignList();
             }
         });
@@ -332,6 +444,8 @@ public class Stage1_a_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 currentPlayerLife = 0;
                 currentEnemyLife = 0;
+                stopService(gameplay_sound);
+                startService(svc);
                 toMainMenu();
             }
         });
@@ -385,24 +499,51 @@ public class Stage1_a_Activity extends AppCompatActivity {
         currentAngle = firingAngle.getValue();
         currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
 
-        if (currentAngle <= 20 && currentAngle >= 15){
+        if (currentAngle <= upperAngle && currentAngle >= lowerAngle){
             currentEnemyLife = currentEnemyLife - 20;
+            missileExplosionAnim();
         }
+
+        //Enemy Distance Pattern START
+        if (currentEnemyLife <= threeQuarterLife && currentEnemyLife > twoQuarterLife){
+            upperAngle = threeQuarterUpperAngle;
+            lowerAngle = threeQuarterLowerAngle;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance2) + " Km");
+            textColorBlink();
+        }
+        else if (currentEnemyLife <= twoQuarterLife && currentEnemyLife > oneQuarterLife){
+            upperAngle = twoQuarterUpperAngle;
+            lowerAngle = twoQuarterLowerAngle;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance3) + " Km");
+            textColorBlink();
+        }
+        else if (currentEnemyLife <= oneQuarterLife){
+            upperAngle = oneQuarterUpperAngle;
+            lowerAngle = oneQuarterLowerAngle;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance4) + " Km");
+            textColorBlink();
+        }
+        //Enemy Distance Pattern END
 
         if (currentEnemyLife <= 0){
 
             if (chosenlevel <= 4){
                 money = money + 80;
+                displayReward.setText(String.valueOf(80));
             }
             else if (chosenlevel <= 8 && chosenlevel >= 5){
                 money = money + 105;
+                displayReward.setText(String.valueOf(105));
             }
             else if (chosenlevel <= 12 && chosenlevel >= 9){
                 money = money + 145;
+                displayReward.setText(String.valueOf(145));
             }
             else if (chosenlevel <= 16 && chosenlevel >= 13){
                 money = money + 190;
+                displayReward.setText(String.valueOf(190));
             }
+
             SharedPreferences.Editor editor = getSharedPreferences(ShopActivity.moneySharedPreference, MODE_PRIVATE).edit();
             editor.putInt("money", money);
             editor.commit();
@@ -510,20 +651,46 @@ public class Stage1_a_Activity extends AppCompatActivity {
         currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
         currentEnemyLife = currentEnemyLife - 30;
 
+        //Enemy Distance Pattern START
+        if (currentEnemyLife <= threeQuarterLife && currentEnemyLife > twoQuarterLife){
+            upperAngle = threeQuarterUpperAngle;
+            lowerAngle = threeQuarterLowerAngle;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance2) + " Km");
+            textColorBlink();
+        }
+        else if (currentEnemyLife <= twoQuarterLife && currentEnemyLife > oneQuarterLife){
+            upperAngle = twoQuarterUpperAngle;
+            lowerAngle = twoQuarterLowerAngle;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance3) + " Km");
+            textColorBlink();
+        }
+        else if (currentEnemyLife <= oneQuarterLife){
+            upperAngle = oneQuarterUpperAngle;
+            lowerAngle = oneQuarterLowerAngle;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance4) + " Km");
+            textColorBlink();
+        }
+        //Enemy Distance Pattern END
+
         if (currentEnemyLife <= 0){
 
             if (chosenlevel <= 4){
                 money = money + 80;
+                displayReward.setText(String.valueOf(80));
             }
             else if (chosenlevel <= 8 && chosenlevel >= 5){
                 money = money + 105;
+                displayReward.setText(String.valueOf(105));
             }
             else if (chosenlevel <= 12 && chosenlevel >= 9){
                 money = money + 145;
+                displayReward.setText(String.valueOf(145));
             }
             else if (chosenlevel <= 16 && chosenlevel >= 13){
                 money = money + 190;
+                displayReward.setText(String.valueOf(190));
             }
+
             SharedPreferences.Editor editor = getSharedPreferences(ShopActivity.moneySharedPreference, MODE_PRIVATE).edit();
             editor.putInt("money", money);
             editor.commit();
@@ -590,16 +757,21 @@ public class Stage1_a_Activity extends AppCompatActivity {
 
             if (chosenlevel <= 4){
                 money = money + 80;
+                displayReward.setText(String.valueOf(80));
             }
             else if (chosenlevel <= 8 && chosenlevel >= 5){
                 money = money + 105;
+                displayReward.setText(String.valueOf(105));
             }
             else if (chosenlevel <= 12 && chosenlevel >= 9){
                 money = money + 145;
+                displayReward.setText(String.valueOf(145));
             }
             else if (chosenlevel <= 16 && chosenlevel >= 13){
                 money = money + 190;
+                displayReward.setText(String.valueOf(190));
             }
+
             SharedPreferences.Editor editor = getSharedPreferences(ShopActivity.moneySharedPreference, MODE_PRIVATE).edit();
             editor.putInt("money", money);
             editor.commit();
@@ -636,16 +808,21 @@ public class Stage1_a_Activity extends AppCompatActivity {
 
                         if (chosenlevel <= 4){
                             money = money + 80;
+                            displayReward.setText(String.valueOf(80));
                         }
                         else if (chosenlevel <= 8 && chosenlevel >= 5){
                             money = money + 105;
+                            displayReward.setText(String.valueOf(105));
                         }
                         else if (chosenlevel <= 12 && chosenlevel >= 9){
                             money = money + 145;
+                            displayReward.setText(String.valueOf(145));
                         }
                         else if (chosenlevel <= 16 && chosenlevel >= 13){
                             money = money + 190;
+                            displayReward.setText(String.valueOf(190));
                         }
+
                         SharedPreferences.Editor editor = getSharedPreferences(ShopActivity.moneySharedPreference, MODE_PRIVATE).edit();
                         editor.putInt("money", money);
                         editor.commit();
@@ -665,6 +842,27 @@ public class Stage1_a_Activity extends AppCompatActivity {
                     else {
                         currentEnemyLife = currentEnemyLife - autocannon;
                         currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
+
+                        //Enemy Distance Pattern START
+                        if (currentEnemyLife <= threeQuarterLife && currentEnemyLife > twoQuarterLife){
+                            upperAngle = threeQuarterUpperAngle;
+                            lowerAngle = threeQuarterLowerAngle;
+                            enemyDistanceDisplay.setText(String.valueOf(enemyDistance2) + " Km");
+                            textColorBlink();
+                        }
+                        else if (currentEnemyLife <= twoQuarterLife && currentEnemyLife > oneQuarterLife){
+                            upperAngle = twoQuarterUpperAngle;
+                            lowerAngle = twoQuarterLowerAngle;
+                            enemyDistanceDisplay.setText(String.valueOf(enemyDistance3) + " Km");
+                            textColorBlink();
+                        }
+                        else if (currentEnemyLife <= oneQuarterLife){
+                            upperAngle = oneQuarterUpperAngle;
+                            lowerAngle = oneQuarterLowerAngle;
+                            enemyDistanceDisplay.setText(String.valueOf(enemyDistance4) + " Km");
+                            textColorBlink();
+                        }
+                        //Enemy Distance Pattern END
 
                         autocannonSFX = MediaPlayer.create(Stage1_a_Activity.this, R.raw.autocannon_sfx);
                         autocannonSFX.start();
@@ -697,16 +895,21 @@ public class Stage1_a_Activity extends AppCompatActivity {
 
             if (chosenlevel <= 4){
                 money = money + 80;
+                displayReward.setText(String.valueOf(80));
             }
             else if (chosenlevel <= 8 && chosenlevel >= 5){
                 money = money + 105;
+                displayReward.setText(String.valueOf(105));
             }
             else if (chosenlevel <= 12 && chosenlevel >= 9){
                 money = money + 145;
+                displayReward.setText(String.valueOf(145));
             }
             else if (chosenlevel <= 16 && chosenlevel >= 13){
                 money = money + 190;
+                displayReward.setText(String.valueOf(190));
             }
+
             SharedPreferences.Editor editor = getSharedPreferences(ShopActivity.moneySharedPreference, MODE_PRIVATE).edit();
             editor.putInt("money", money);
             editor.commit();
@@ -743,16 +946,21 @@ public class Stage1_a_Activity extends AppCompatActivity {
 
                         if (chosenlevel <= 4){
                             money = money + 80;
+                            displayReward.setText(String.valueOf(80));
                         }
                         else if (chosenlevel <= 8 && chosenlevel >= 5){
                             money = money + 105;
+                            displayReward.setText(String.valueOf(105));
                         }
                         else if (chosenlevel <= 12 && chosenlevel >= 9){
                             money = money + 145;
+                            displayReward.setText(String.valueOf(145));
                         }
                         else if (chosenlevel <= 16 && chosenlevel >= 13){
                             money = money + 190;
+                            displayReward.setText(String.valueOf(190));
                         }
+
                         SharedPreferences.Editor editor = getSharedPreferences(ShopActivity.moneySharedPreference, MODE_PRIVATE).edit();
                         editor.putInt("money", money);
                         editor.commit();
@@ -773,10 +981,11 @@ public class Stage1_a_Activity extends AppCompatActivity {
                         currentPlayerLife = currentPlayerLife - enemyDamage;
                         playerLifeBar.setProgress(currentPlayerLife);
 
-                        enemyAttackSFX = MediaPlayer.create(Stage1_a_Activity.this, R.raw.naval_gun_sfx);
-                        enemyAttackSFX.start();
-
-                        playerExplosionAnim();
+                        if (chosenlevel > 1) {
+                            enemyAttackSFX = MediaPlayer.create(Stage1_a_Activity.this, R.raw.enemy_gun_sfx);
+                            enemyAttackSFX.start();
+                            playerExplosionAnim();
+                        }
 
                         enemyReloadTime = getEnemyReloadTimeRestart;
                         enemyAutomaticAttack();
@@ -893,6 +1102,14 @@ public class Stage1_a_Activity extends AppCompatActivity {
         else {
             pauseMenu.setVisibility(View.GONE);
         }
+    }
+
+    public void textColorBlink(){
+        ObjectAnimator anim = ObjectAnimator.ofInt(enemyDistanceDisplay, "textColor", Color.BLACK, Color.RED,
+                Color.BLACK);
+        anim.setDuration(1500);
+        anim.setEvaluator(new ArgbEvaluator());
+        anim.start();
     }
 
     public void slideUp() {

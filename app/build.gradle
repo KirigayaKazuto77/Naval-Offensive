@@ -32,4 +32,5 @@ dependencies {
 
     // Additional Libraries
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
 }

@@ -15,8 +15,7 @@ public class Stage1_Prologue_Activity extends AppCompatActivity {
     private ImageButton play_to_stage1;
     private MediaPlayer voiceOver;
     private int chosenlevel;
-    private ImageView stage1Details,
-                        stage2Details;
+    private ImageView stageDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,22 +31,27 @@ public class Stage1_Prologue_Activity extends AppCompatActivity {
             }
         });
 
-        stage1Details = findViewById(R.id.stage1_details);
-        stage2Details = findViewById(R.id.stage2_details);
-
         //******************************************************************************************
         //****************************************************************** SHAREDPREFERENCES INITIALIZATION START
         SharedPreferences levelsharedPreferences = getSharedPreferences(CampaignListActivity.levelSharedPreferences, MODE_PRIVATE);
         chosenlevel = levelsharedPreferences.getInt("chosenlevel", 0);
 
         if (chosenlevel == 1){
-            stage1Details.setVisibility(View.VISIBLE);
+            stageDetails = findViewById(R.id.stage1_details);
+            stageDetails.setVisibility(View.VISIBLE);
             voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage1_prologue_voice);
             voiceOver.start();
         }
         if (chosenlevel == 2){
-            stage2Details.setVisibility(View.VISIBLE);
+            stageDetails = findViewById(R.id.stage2_details);
+            stageDetails.setVisibility(View.VISIBLE);
             voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage2_prologue_voice);
+            voiceOver.start();
+        }
+        if (chosenlevel == 3){
+            stageDetails = findViewById(R.id.stage3_details);
+            stageDetails.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage3_prologue_voice);
             voiceOver.start();
         }
         //****************************************************************** SHAREDPREFERENCES INITIALIZATION END
@@ -77,11 +81,8 @@ public class Stage1_Prologue_Activity extends AppCompatActivity {
 
         voiceOver.stop();
 
-        Intent svc=new Intent(this, BackgroundSoundService.class);
         Intent loading_sound=new Intent(this, LoadingSoundService.class);
-
         stopService(loading_sound);
-        startService(svc);
 
         Intent mainIntent = new Intent(Stage1_Prologue_Activity.this, Stage1_a_Activity.class);
         startActivity(mainIntent);

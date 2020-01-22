@@ -24,6 +24,10 @@
 
         <service android:enabled="true" android:name=".BackgroundSoundService" />
         <service android:enabled="true" android:name=".LoadingSoundService" />
+        <service android:enabled="true" android:name=".GamePlay_Music_1_Service" />
+        <service android:enabled="true" android:name=".GamePlay_Music_2_Service" />
+        <service android:enabled="true" android:name=".GamePlay_Music_3_Service" />
+        <service android:enabled="true" android:name=".GamePlay_Music_4_Service" />
 
         <activity android:name=".SplashActivity1"
             android:screenOrientation="landscape">

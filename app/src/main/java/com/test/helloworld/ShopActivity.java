@@ -168,6 +168,9 @@ public class ShopActivity extends AppCompatActivity {
 
     public void buyMissile1(){
         if(money >= 100) {
+            MediaPlayer soundfx = MediaPlayer.create(ShopActivity.this, R.raw.gear_sfx);
+            soundfx.start();
+
             missile1.setVisibility(View.GONE);
             money = money - 100;
             SharedPreferences.Editor editor = getSharedPreferences(moneySharedPreference, MODE_PRIVATE).edit();
@@ -188,6 +191,9 @@ public class ShopActivity extends AppCompatActivity {
 
     public void buyMissile2(){
         if(money >= 200) {
+            MediaPlayer soundfx = MediaPlayer.create(ShopActivity.this, R.raw.gear_sfx);
+            soundfx.start();
+
             missile2.setVisibility(View.GONE);
             money = money - 200;
             SharedPreferences.Editor editor = getSharedPreferences(moneySharedPreference, MODE_PRIVATE).edit();
@@ -208,6 +214,9 @@ public class ShopActivity extends AppCompatActivity {
 
     public void buyMissile4(){
         if(money >= 400) {
+            MediaPlayer soundfx = MediaPlayer.create(ShopActivity.this, R.raw.gear_sfx);
+            soundfx.start();
+
             missile4.setAlpha(0.5f);
             missile4.setEnabled(false);
             money = money - 400;
@@ -229,6 +238,9 @@ public class ShopActivity extends AppCompatActivity {
 
     public void buyGun1(){
         if(money >= 100) {
+            MediaPlayer soundfx = MediaPlayer.create(ShopActivity.this, R.raw.gear_sfx);
+            soundfx.start();
+
             gun1.setVisibility(View.GONE);
             gun = gun - 3000;
             money = money - 100;
@@ -250,6 +262,9 @@ public class ShopActivity extends AppCompatActivity {
 
     public void buyGun2(){
         if(money >= 200) {
+            MediaPlayer soundfx = MediaPlayer.create(ShopActivity.this, R.raw.gear_sfx);
+            soundfx.start();
+
             gun2.setVisibility(View.GONE);
             gun = gun - 2000;
             money = money - 200;
@@ -271,6 +286,9 @@ public class ShopActivity extends AppCompatActivity {
 
     public void buyGun3(){
         if(money >= 300) {
+            MediaPlayer soundfx = MediaPlayer.create(ShopActivity.this, R.raw.gear_sfx);
+            soundfx.start();
+
             gun3.setAlpha(0.5f);
             gun3.setEnabled(false);
             gun = gun - 2000;
@@ -293,6 +311,9 @@ public class ShopActivity extends AppCompatActivity {
 
     public void buyAutocannon1(){
         if(money >= 200) {
+            MediaPlayer soundfx = MediaPlayer.create(ShopActivity.this, R.raw.gear_sfx);
+            soundfx.start();
+
             autocannon1.setVisibility(View.GONE);
             autocannon = autocannon + 5;
             money = money - 200;
@@ -314,6 +335,9 @@ public class ShopActivity extends AppCompatActivity {
 
     public void buyAutocannon2(){
         if(money >= 200) {
+            MediaPlayer soundfx = MediaPlayer.create(ShopActivity.this, R.raw.gear_sfx);
+            soundfx.start();
+
             autocannon2.setAlpha(0.5f);
             autocannon2.setEnabled(false);
             autocannon = autocannon + 5;
