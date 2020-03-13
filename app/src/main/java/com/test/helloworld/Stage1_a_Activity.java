@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -46,7 +47,8 @@ public class Stage1_a_Activity extends AppCompatActivity {
                         enemyDistanceDisplay, displayReward;
 
     private ProgressBar enemyLifeBar, playerLifeBar;
-    private RelativeLayout gunTurret, mission_failed_popup, firstSecondaryGun, secondSecondaryGun;
+    private RelativeLayout gunTurret, mission_failed_popup, firstSecondaryGun, secondSecondaryGun, attackOnEnemy, theatrical_launch,
+                            theatrical_frame;
     private ImageView gunfire_effect, harpoonMissile, harpoonMissileImpact, targetShip, secondaryGunEffect, secondSecondaryGunEffect,
             missileLauncher, playerShipExplosion;
 
@@ -68,6 +70,9 @@ public class Stage1_a_Activity extends AppCompatActivity {
 
         hideNavBar();
 
+
+        theatrical_launch = findViewById(R.id.theatrical_launch);
+        theatrical_frame = findViewById(R.id.attack_theatrical_frame);
         enemyDistanceDisplay = findViewById(R.id.target_distance);
         displayReward = findViewById(R.id.displayReward);
 
@@ -128,6 +133,8 @@ public class Stage1_a_Activity extends AppCompatActivity {
             targetShip = findViewById(R.id.target_ship_1);
             targetShip.setVisibility(View.VISIBLE);
 
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_1);
+
             currentEnemyLife = 100;
             enemyLifeBar.setMax(currentEnemyLife);
             enemyLifeBar.setProgress(currentEnemyLife);
@@ -146,12 +153,12 @@ public class Stage1_a_Activity extends AppCompatActivity {
             upperAngle = (int)exact_angle1 + 2;
             lowerAngle = (int)exact_angle1 - 2;
 
-            enemyDistance2 = 9;
+            enemyDistance2 = 12;
             double exact_angle2 = (enemyDistance2 * 45) / 20;
             threeQuarterUpperAngle = (int)exact_angle2 + 2;
             threeQuarterLowerAngle = (int)exact_angle2 -2;
 
-            enemyDistance3 = 8;
+            enemyDistance3 = 10;
             double exact_angle3 = (enemyDistance3 * 45) / 20;
             twoQuarterUpperAngle = (int)exact_angle3 + 2;
             twoQuarterLowerAngle = (int)exact_angle3 -2;
@@ -166,6 +173,8 @@ public class Stage1_a_Activity extends AppCompatActivity {
             targetShip = findViewById(R.id.target_ship_2);
             targetShip.setVisibility(View.VISIBLE);
 
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_2);
+
             currentEnemyLife = 120;
             enemyLifeBar.setMax(currentEnemyLife);
             enemyLifeBar.setProgress(currentEnemyLife);
@@ -174,27 +183,27 @@ public class Stage1_a_Activity extends AppCompatActivity {
             twoQuarterLife = currentEnemyLife * 1 / 2;
             oneQuarterLife = currentEnemyLife * 1 / 4;
 
-            getEnemyReloadTimeRestart = 10000;
-            enemyReloadTime = 10000;
-            enemyDamage = 2;
+            getEnemyReloadTimeRestart = 11000;
+            enemyReloadTime = 11000;
+            enemyDamage = 10;
 
-            enemyDistance1 = 8;
+            enemyDistance1 = 10;
             enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
             double exact_angle = (enemyDistance1 * 45) / 20;
             upperAngle = (int)exact_angle + 2;
             lowerAngle = (int)exact_angle - 2;
 
-            enemyDistance2 = 9;
+            enemyDistance2 = 12;
             double exact_angle2 = (enemyDistance2 * 45) / 20;
             threeQuarterUpperAngle = (int)exact_angle2 + 2;
             threeQuarterLowerAngle = (int)exact_angle2 -2;
 
-            enemyDistance3 = 9;
+            enemyDistance3 = 7;
             double exact_angle3 = (enemyDistance3 * 45) / 20;
             twoQuarterUpperAngle = (int)exact_angle3 + 2;
             twoQuarterLowerAngle = (int)exact_angle3 -2;
 
-            enemyDistance4 = 8;
+            enemyDistance4 = 13;
             double exact_angle4 = (enemyDistance4 * 45) / 20;
             oneQuarterUpperAngle = (int)exact_angle4 + 2;
             oneQuarterLowerAngle = (int)exact_angle4 -2;
@@ -203,7 +212,9 @@ public class Stage1_a_Activity extends AppCompatActivity {
             targetShip = findViewById(R.id.target_ship_3);
             targetShip.setVisibility(View.VISIBLE);
 
-            currentEnemyLife = 130;
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_3);
+
+            currentEnemyLife = 120;
             enemyLifeBar.setMax(currentEnemyLife);
             enemyLifeBar.setProgress(currentEnemyLife);
 
@@ -213,9 +224,169 @@ public class Stage1_a_Activity extends AppCompatActivity {
 
             getEnemyReloadTimeRestart = 9000;
             enemyReloadTime = 9000;
-            enemyDamage = 7;
+            enemyDamage = 10;
 
-            enemyDistance1 = 8;
+            enemyDistance1 = 5;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle + 2;
+            lowerAngle = (int)exact_angle - 2;
+
+            enemyDistance2 = 7;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 2;
+            threeQuarterLowerAngle = (int)exact_angle2 -2;
+
+            enemyDistance3 = 13;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 2;
+            twoQuarterLowerAngle = (int)exact_angle3 -2;
+
+            enemyDistance4 = 10;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 2;
+            oneQuarterLowerAngle = (int)exact_angle4 -2;
+        }
+
+        if (chosenlevel == 4){
+            targetShip = findViewById(R.id.target_ship_4);
+            targetShip.setVisibility(View.VISIBLE);
+
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_4);
+
+            currentEnemyLife = 130;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
+            getEnemyReloadTimeRestart = 8000;
+            enemyReloadTime = 8000;
+            enemyDamage = 15;
+
+            enemyDistance1 = 9;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle + 2;
+            lowerAngle = (int)exact_angle - 2;
+
+            enemyDistance2 = 11;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 2;
+            threeQuarterLowerAngle = (int)exact_angle2 -2;
+
+            enemyDistance3 = 7;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 2;
+            twoQuarterLowerAngle = (int)exact_angle3 -2;
+
+            enemyDistance4 = 10;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 1;
+            oneQuarterLowerAngle = (int)exact_angle4 -1;
+        }
+
+        if (chosenlevel == 5){
+            targetShip = findViewById(R.id.target_ship_5);
+            targetShip.setVisibility(View.VISIBLE);
+
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_5);
+
+            currentEnemyLife = 130;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
+            getEnemyReloadTimeRestart = 8000;
+            enemyReloadTime = 8000;
+            enemyDamage = 18;
+
+            enemyDistance1 = 18;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle + 2;
+            lowerAngle = (int)exact_angle - 2;
+
+            enemyDistance2 = 15;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 2;
+            threeQuarterLowerAngle = (int)exact_angle2 -2;
+
+            enemyDistance3 = 7;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 2;
+            twoQuarterLowerAngle = (int)exact_angle3 -2;
+
+            enemyDistance4 = 12;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 1;
+            oneQuarterLowerAngle = (int)exact_angle4 -1;
+        }
+
+        if (chosenlevel == 6){
+            targetShip = findViewById(R.id.target_ship_6);
+            targetShip.setVisibility(View.VISIBLE);
+
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_6);
+
+            currentEnemyLife = 140;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
+            getEnemyReloadTimeRestart = 7500;
+            enemyReloadTime = 7500;
+            enemyDamage = 18;
+
+            enemyDistance1 = 12;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle + 2;
+            lowerAngle = (int)exact_angle - 2;
+
+            enemyDistance2 = 4;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 2;
+            threeQuarterLowerAngle = (int)exact_angle2 -2;
+
+            enemyDistance3 = 6;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 2;
+            twoQuarterLowerAngle = (int)exact_angle3 -2;
+
+            enemyDistance4 = 11;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 1;
+            oneQuarterLowerAngle = (int)exact_angle4 -1;
+        }
+
+        if (chosenlevel == 7){
+            targetShip = findViewById(R.id.target_ship_7);
+            targetShip.setVisibility(View.VISIBLE);
+
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_7);
+
+            currentEnemyLife = 150;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
+            getEnemyReloadTimeRestart = 7500;
+            enemyReloadTime = 7500;
+            enemyDamage = 18;
+
+            enemyDistance1 = 2;
             enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
             double exact_angle = (enemyDistance1 * 45) / 20;
             upperAngle = (int)exact_angle + 2;
@@ -226,15 +397,380 @@ public class Stage1_a_Activity extends AppCompatActivity {
             threeQuarterUpperAngle = (int)exact_angle2 + 2;
             threeQuarterLowerAngle = (int)exact_angle2 -2;
 
-            enemyDistance3 = 8;
+            enemyDistance3 = 5;
             double exact_angle3 = (enemyDistance3 * 45) / 20;
             twoQuarterUpperAngle = (int)exact_angle3 + 2;
             twoQuarterLowerAngle = (int)exact_angle3 -2;
 
             enemyDistance4 = 12;
             double exact_angle4 = (enemyDistance4 * 45) / 20;
-            oneQuarterUpperAngle = (int)exact_angle4 + 2;
-            oneQuarterLowerAngle = (int)exact_angle4 -2;
+            oneQuarterUpperAngle = (int)exact_angle4 + 1;
+            oneQuarterLowerAngle = (int)exact_angle4 -1;
+        }
+
+        if (chosenlevel == 8){
+            targetShip = findViewById(R.id.target_ship_8);
+            targetShip.setVisibility(View.VISIBLE);
+
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_8);
+
+            currentEnemyLife = 170;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
+            getEnemyReloadTimeRestart = 7500;
+            enemyReloadTime = 7500;
+            enemyDamage = 18;
+
+            enemyDistance1 = 14;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle + 2;
+            lowerAngle = (int)exact_angle - 2;
+
+            enemyDistance2 = 19;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 2;
+            threeQuarterLowerAngle = (int)exact_angle2 -2;
+
+            enemyDistance3 = 17;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 2;
+            twoQuarterLowerAngle = (int)exact_angle3 -2;
+
+            enemyDistance4 = 8;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 1;
+            oneQuarterLowerAngle = (int)exact_angle4 -1;
+        }
+
+        if (chosenlevel == 9){
+            targetShip = findViewById(R.id.target_ship_9);
+            targetShip.setVisibility(View.VISIBLE);
+
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_9);
+
+            currentEnemyLife = 180;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
+            getEnemyReloadTimeRestart = 7000;
+            enemyReloadTime = 7000;
+            enemyDamage = 13;
+
+            enemyDistance1 = 8;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle + 2;
+            lowerAngle = (int)exact_angle - 2;
+
+            enemyDistance2 = 20;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 2;
+            threeQuarterLowerAngle = (int)exact_angle2 -2;
+
+            enemyDistance3 = 14;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 2;
+            twoQuarterLowerAngle = (int)exact_angle3 -2;
+
+            enemyDistance4 = 5;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 1;
+            oneQuarterLowerAngle = (int)exact_angle4 -1;
+        }
+
+        if (chosenlevel == 10){
+            targetShip = findViewById(R.id.target_ship_10);
+            targetShip.setVisibility(View.VISIBLE);
+
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_10);
+
+            currentEnemyLife = 180;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
+            getEnemyReloadTimeRestart = 7000;
+            enemyReloadTime = 7000;
+            enemyDamage = 15;
+
+            enemyDistance1 = 7;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle + 2;
+            lowerAngle = (int)exact_angle - 2;
+
+            enemyDistance2 = 4;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 2;
+            threeQuarterLowerAngle = (int)exact_angle2 -2;
+
+            enemyDistance3 = 13;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 2;
+            twoQuarterLowerAngle = (int)exact_angle3 -2;
+
+            enemyDistance4 = 10;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 1;
+            oneQuarterLowerAngle = (int)exact_angle4 -1;
+        }
+
+        if (chosenlevel == 11){
+            targetShip = findViewById(R.id.target_ship_11);
+            targetShip.setVisibility(View.VISIBLE);
+
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_11);
+
+            currentEnemyLife = 190;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
+            getEnemyReloadTimeRestart = 7000;
+            enemyReloadTime = 7000;
+            enemyDamage = 18;
+
+            enemyDistance1 = 13;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle + 2;
+            lowerAngle = (int)exact_angle - 2;
+
+            enemyDistance2 = 16;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 2;
+            threeQuarterLowerAngle = (int)exact_angle2 -2;
+
+            enemyDistance3 = 10;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 1;
+            twoQuarterLowerAngle = (int)exact_angle3 -1;
+
+            enemyDistance4 = 2;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 1;
+            oneQuarterLowerAngle = (int)exact_angle4 -1;
+        }
+
+        if (chosenlevel == 12){
+            currentPlayerLife = 120;
+            playerLifeBar = findViewById(R.id.player_life_bar);
+            playerLifeBar.setMax(200);
+            playerLifeBar.setProgress(currentPlayerLife);
+
+            targetShip = findViewById(R.id.target_ship_12);
+            targetShip.setVisibility(View.VISIBLE);
+
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_12);
+
+            currentEnemyLife = 190;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
+            getEnemyReloadTimeRestart = 7000;
+            enemyReloadTime = 7000;
+            enemyDamage = 20;
+
+            enemyDistance1 = 2;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle + 2;
+            lowerAngle = (int)exact_angle - 2;
+
+            enemyDistance2 = 10;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 2;
+            threeQuarterLowerAngle = (int)exact_angle2 -2;
+
+            enemyDistance3 = 16;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 1;
+            twoQuarterLowerAngle = (int)exact_angle3 -1;
+
+            enemyDistance4 = 13;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 1;
+            oneQuarterLowerAngle = (int)exact_angle4 -1;
+        }
+
+        if (chosenlevel == 13){
+            targetShip = findViewById(R.id.target_ship_13);
+            targetShip.setVisibility(View.VISIBLE);
+
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_13);
+
+            currentEnemyLife = 200;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
+            getEnemyReloadTimeRestart = 6000;
+            enemyReloadTime = 6000;
+            enemyDamage = 25;
+
+            enemyDistance1 = 18;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle + 2;
+            lowerAngle = (int)exact_angle - 2;
+
+            enemyDistance2 = 8;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 2;
+            threeQuarterLowerAngle = (int)exact_angle2 -2;
+
+            enemyDistance3 = 12;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 1;
+            twoQuarterLowerAngle = (int)exact_angle3 -1;
+
+            enemyDistance4 = 7;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 1;
+            oneQuarterLowerAngle = (int)exact_angle4 -1;
+        }
+
+        if (chosenlevel == 14){
+            targetShip = findViewById(R.id.target_ship_14);
+            targetShip.setVisibility(View.VISIBLE);
+
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_14);
+
+            currentEnemyLife = 220;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
+            getEnemyReloadTimeRestart = 6000;
+            enemyReloadTime = 6000;
+            enemyDamage = 30;
+
+            enemyDistance1 = 19;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle + 2;
+            lowerAngle = (int)exact_angle - 2;
+
+            enemyDistance2 = 4;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 1;
+            threeQuarterLowerAngle = (int)exact_angle2 -1;
+
+            enemyDistance3 = 9;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 1;
+            twoQuarterLowerAngle = (int)exact_angle3 -1;
+
+            enemyDistance4 = 13;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 1;
+            oneQuarterLowerAngle = (int)exact_angle4 -1;
+        }
+
+        if (chosenlevel == 15){
+            targetShip = findViewById(R.id.target_ship_15);
+            targetShip.setVisibility(View.VISIBLE);
+
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_15);
+
+            currentEnemyLife = 250;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
+            getEnemyReloadTimeRestart = 5500;
+            enemyReloadTime = 5500;
+            enemyDamage = 35;
+
+            enemyDistance1 = 2;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle + 1;
+            lowerAngle = (int)exact_angle - 1;
+
+            enemyDistance2 = 15;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 1;
+            threeQuarterLowerAngle = (int)exact_angle2 -1;
+
+            enemyDistance3 = 11;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 1;
+            twoQuarterLowerAngle = (int)exact_angle3 -1;
+
+            enemyDistance4 = 6;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 1;
+            oneQuarterLowerAngle = (int)exact_angle4 -1;
+        }
+
+        if (chosenlevel == 16){
+            targetShip = findViewById(R.id.target_ship_16);
+            targetShip.setVisibility(View.VISIBLE);
+
+            attackOnEnemy = findViewById(R.id.theatrical_Anim_16);
+
+            currentEnemyLife = 300;
+            enemyLifeBar.setMax(currentEnemyLife);
+            enemyLifeBar.setProgress(currentEnemyLife);
+
+            threeQuarterLife = currentEnemyLife * 3 / 4;
+            twoQuarterLife = currentEnemyLife * 1 / 2;
+            oneQuarterLife = currentEnemyLife * 1 / 4;
+
+            getEnemyReloadTimeRestart = 5000;
+            enemyReloadTime = 5000;
+            enemyDamage = 35;
+
+            enemyDistance1 = 4;
+            enemyDistanceDisplay.setText(String.valueOf(enemyDistance1) + " Km");
+            double exact_angle = (enemyDistance1 * 45) / 20;
+            upperAngle = (int)exact_angle + 1;
+            lowerAngle = (int)exact_angle - 1;
+
+            enemyDistance2 = 17;
+            double exact_angle2 = (enemyDistance2 * 45) / 20;
+            threeQuarterUpperAngle = (int)exact_angle2 + 1;
+            threeQuarterLowerAngle = (int)exact_angle2 -1;
+
+            enemyDistance3 = 13;
+            double exact_angle3 = (enemyDistance3 * 45) / 20;
+            twoQuarterUpperAngle = (int)exact_angle3 + 1;
+            twoQuarterLowerAngle = (int)exact_angle3 -1;
+
+            enemyDistance4 = 7;
+            double exact_angle4 = (enemyDistance4 * 45) / 20;
+            oneQuarterUpperAngle = (int)exact_angle4 + 1;
+            oneQuarterLowerAngle = (int)exact_angle4 -1;
         }
 
         //****************************************************************** SHAREDPREFERENCES INITIALIZATION END
@@ -261,8 +797,6 @@ public class Stage1_a_Activity extends AppCompatActivity {
         missionCompletePopUp = findViewById(R.id.success_popup);
         mission_failed_popup = findViewById(R.id.failed_popup);
         shipBody = findViewById(R.id.player_ship);
-
-        slideUp();
 
         currentEnemyLifeDisplay = findViewById(R.id.currentEnemyLifeText);
         currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
@@ -460,14 +994,10 @@ public class Stage1_a_Activity extends AppCompatActivity {
 
         // ************************************************ PAUSE MENU BUTTONS END
         // ***************************************************************************
-
-        enemyAutomaticAttack()
-        ;
+        if (chosenlevel > 1) {enemyAutomaticAttack();}
         // ************************************************ AUTOCANNON START
         // ***************************************************************************
-        if (autocannon > 0){
-            autocannonFunction();
-        }
+        if (autocannon > 0){autocannonFunction();}
         // ************************************************ AUTOCANNON END
         // ***************************************************************************
 
@@ -557,7 +1087,30 @@ public class Stage1_a_Activity extends AppCompatActivity {
             fireButton.setAlpha(0.5f);
             setLevelMilestone();
             missileExplosionAnim();
-            missionCompletePopUp.setVisibility(View.VISIBLE);
+
+            if(chosenlevel == 16){
+                final Intent svc=new Intent(this, BackgroundSoundService.class);
+
+                RelativeLayout Campaign_End_Banner;
+                Campaign_End_Banner = findViewById(R.id.campaign_end_banner);
+                Campaign_End_Banner.setVisibility(View.VISIBLE);
+
+                ImageButton Campaign_Banner_MainMenu_Button;
+                Campaign_Banner_MainMenu_Button = findViewById(R.id.campaign_end_mainmenu_button);
+                Campaign_Banner_MainMenu_Button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        currentPlayerLife = 0;
+                        currentEnemyLife = 0;
+                        stopService(gameplay_sound);
+                        startService(svc);
+                        toMainMenu();
+                    }
+                });
+            }
+            else {
+                missionCompletePopUp.setVisibility(View.VISIBLE);
+            }
         }
 
         currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
@@ -602,31 +1155,54 @@ public class Stage1_a_Activity extends AppCompatActivity {
     // *********************************************************************************************
     // ********************************************************************** MISSILE START
     public void missileFire(){
-        MediaPlayer soundfx = MediaPlayer.create(Stage1_a_Activity.this, R.raw.missile_launch_sfx);
-        soundfx.start();
-
         harpoonMissile = findViewById(R.id.harpoon_missile);
-        harpoonMissile.setVisibility(View.VISIBLE);
+        theatrical_launch.setVisibility(View.VISIBLE);
+        theatricalLaunch();
 
-        Animation missileAnim = AnimationUtils.loadAnimation(this, R.anim.missile_launch);
-        harpoonMissile.startAnimation(missileAnim);
-
-        missileLaunchAnim = new CountDownTimer(1000, 1000) {
+        CountDownTimer missile_launch_1st = new CountDownTimer(900, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
             }
-
             @Override
             public void onFinish() {
+                harpoonMissile.setVisibility(View.VISIBLE);
+                Animation missileAnim = AnimationUtils.loadAnimation(Stage1_a_Activity.this, R.anim.missile_launch);
+                harpoonMissile.startAnimation(missileAnim);
+                MediaPlayer soundfx = MediaPlayer.create(Stage1_a_Activity.this, R.raw.missile_launch_sfx);
+                soundfx.start();
+                CountDownTimer missileGone = new CountDownTimer(1000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
+                    @Override
+                    public void onFinish() {
+                        harpoonMissile.setVisibility(View.GONE);
+                    }
+                }.start();
+            }
+        }.start();
+
+        harpoonMissile.setVisibility(View.GONE);
+
+        CountDownTimer missile_launch_2nd = new CountDownTimer(2800, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+            @Override
+            public void onFinish() {
+                theatrical_launch.setVisibility(View.GONE);
                 harpoonMissile.setVisibility(View.GONE);
                 missileImpactAnim();
             }
         }.start();
-
     }
 
     public void missileImpactAnim(){
         harpoonMissileImpact = findViewById(R.id.harpoon_missile_impact);
+
+        attackOnEnemy.setVisibility(View.VISIBLE);
+        theatrical_frame.setVisibility(View.VISIBLE);
+
         Animation missileImpactAnim = AnimationUtils.loadAnimation(this, R.anim.missile_impact);
         harpoonMissileImpact.startAnimation(missileImpactAnim);
 
@@ -638,8 +1214,20 @@ public class Stage1_a_Activity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 harpoonMissileImpact.setVisibility(View.GONE);
+                theatricalExplosionAnim();
                 missileImpact();
-                missileExplosionAnim();
+            }
+        }.start();
+
+        CountDownTimer theatricalExit = new CountDownTimer(3000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+            @Override
+            public void onFinish() {
+                attackOnEnemy.setVisibility(View.GONE);
+                theatrical_frame.setVisibility(View.GONE);
             }
         }.start();
     }
@@ -647,6 +1235,9 @@ public class Stage1_a_Activity extends AppCompatActivity {
     public void missileImpact(){
         MediaPlayer soundfx = MediaPlayer.create(Stage1_a_Activity.this, R.raw.impact_sfx);
         soundfx.start();
+
+        Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(250);
 
         currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
         currentEnemyLife = currentEnemyLife - 30;
@@ -703,7 +1294,30 @@ public class Stage1_a_Activity extends AppCompatActivity {
             fireButton.setEnabled(false);
             fireButton.setAlpha(0.5f);
             setLevelMilestone();
-            missionCompletePopUp.setVisibility(View.VISIBLE);
+
+            if(chosenlevel == 16){
+                final Intent svc=new Intent(this, BackgroundSoundService.class);
+
+                RelativeLayout Campaign_End_Banner;
+                Campaign_End_Banner = findViewById(R.id.campaign_end_banner);
+                Campaign_End_Banner.setVisibility(View.VISIBLE);
+
+                ImageButton Campaign_Banner_MainMenu_Button;
+                Campaign_Banner_MainMenu_Button = findViewById(R.id.campaign_end_mainmenu_button);
+                Campaign_Banner_MainMenu_Button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        currentPlayerLife = 0;
+                        currentEnemyLife = 0;
+                        stopService(gameplay_sound);
+                        startService(svc);
+                        toMainMenu();
+                    }
+                });
+            }
+            else {
+                missionCompletePopUp.setVisibility(View.VISIBLE);
+            }
         }
 
         currentEnemyLifeDisplay.setText(String.valueOf(currentEnemyLife));
@@ -786,7 +1400,29 @@ public class Stage1_a_Activity extends AppCompatActivity {
             setLevelMilestone();
 
             missileExplosionAnim();
-            missionCompletePopUp.setVisibility(View.VISIBLE);
+            if(chosenlevel == 16){
+                final Intent svc=new Intent(this, BackgroundSoundService.class);
+
+                RelativeLayout Campaign_End_Banner;
+                Campaign_End_Banner = findViewById(R.id.campaign_end_banner);
+                Campaign_End_Banner.setVisibility(View.VISIBLE);
+
+                ImageButton Campaign_Banner_MainMenu_Button;
+                Campaign_Banner_MainMenu_Button = findViewById(R.id.campaign_end_mainmenu_button);
+                Campaign_Banner_MainMenu_Button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        currentPlayerLife = 0;
+                        currentEnemyLife = 0;
+                        stopService(gameplay_sound);
+                        startService(svc);
+                        toMainMenu();
+                    }
+                });
+            }
+            else {
+                missionCompletePopUp.setVisibility(View.VISIBLE);
+            }
         }
         else {
             autocannonTimer = new CountDownTimer(autocannonReloadTime, 1000) {
@@ -837,7 +1473,29 @@ public class Stage1_a_Activity extends AppCompatActivity {
                         setLevelMilestone();
 
                         missileExplosionAnim();
-                        missionCompletePopUp.setVisibility(View.VISIBLE);
+                        if(chosenlevel == 16){
+                            final Intent svc=new Intent(Stage1_a_Activity.this, BackgroundSoundService.class);
+
+                            RelativeLayout Campaign_End_Banner;
+                            Campaign_End_Banner = findViewById(R.id.campaign_end_banner);
+                            Campaign_End_Banner.setVisibility(View.VISIBLE);
+
+                            ImageButton Campaign_Banner_MainMenu_Button;
+                            Campaign_Banner_MainMenu_Button = findViewById(R.id.campaign_end_mainmenu_button);
+                            Campaign_Banner_MainMenu_Button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    currentPlayerLife = 0;
+                                    currentEnemyLife = 0;
+                                    stopService(gameplay_sound);
+                                    startService(svc);
+                                    toMainMenu();
+                                }
+                            });
+                        }
+                        else {
+                            missionCompletePopUp.setVisibility(View.VISIBLE);
+                        }
                     }
                     else {
                         currentEnemyLife = currentEnemyLife - autocannon;
@@ -924,7 +1582,29 @@ public class Stage1_a_Activity extends AppCompatActivity {
             setLevelMilestone();
 
             missileExplosionAnim();
-            missionCompletePopUp.setVisibility(View.VISIBLE);
+            if(chosenlevel == 16){
+                final Intent svc=new Intent(this, BackgroundSoundService.class);
+
+                RelativeLayout Campaign_End_Banner;
+                Campaign_End_Banner = findViewById(R.id.campaign_end_banner);
+                Campaign_End_Banner.setVisibility(View.VISIBLE);
+
+                ImageButton Campaign_Banner_MainMenu_Button;
+                Campaign_Banner_MainMenu_Button = findViewById(R.id.campaign_end_mainmenu_button);
+                Campaign_Banner_MainMenu_Button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        currentPlayerLife = 0;
+                        currentEnemyLife = 0;
+                        stopService(gameplay_sound);
+                        startService(svc);
+                        toMainMenu();
+                    }
+                });
+            }
+            else {
+                missionCompletePopUp.setVisibility(View.VISIBLE);
+            }
         }
         else {
             enemyTimer = new CountDownTimer(enemyReloadTime, 1000) {
@@ -975,9 +1655,34 @@ public class Stage1_a_Activity extends AppCompatActivity {
                         setLevelMilestone();
 
                         missileExplosionAnim();
-                        missionCompletePopUp.setVisibility(View.VISIBLE);
+                        if(chosenlevel == 16){
+                            final Intent svc=new Intent(Stage1_a_Activity.this, BackgroundSoundService.class);
+
+                            RelativeLayout Campaign_End_Banner;
+                            Campaign_End_Banner = findViewById(R.id.campaign_end_banner);
+                            Campaign_End_Banner.setVisibility(View.VISIBLE);
+
+                            ImageButton Campaign_Banner_MainMenu_Button;
+                            Campaign_Banner_MainMenu_Button = findViewById(R.id.campaign_end_mainmenu_button);
+                            Campaign_Banner_MainMenu_Button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    currentPlayerLife = 0;
+                                    currentEnemyLife = 0;
+                                    stopService(gameplay_sound);
+                                    startService(svc);
+                                    toMainMenu();
+                                }
+                            });
+                        }
+                        else {
+                            missionCompletePopUp.setVisibility(View.VISIBLE);
+                        }
                     }
                     else {
+                        Vibrator v2 = (Vibrator) Stage1_a_Activity.this.getSystemService(Context.VIBRATOR_SERVICE);
+                        v2.vibrate(250);
+
                         currentPlayerLife = currentPlayerLife - enemyDamage;
                         playerLifeBar.setProgress(currentPlayerLife);
 
@@ -1107,55 +1812,9 @@ public class Stage1_a_Activity extends AppCompatActivity {
     public void textColorBlink(){
         ObjectAnimator anim = ObjectAnimator.ofInt(enemyDistanceDisplay, "textColor", Color.BLACK, Color.RED,
                 Color.BLACK);
-        anim.setDuration(1500);
+        anim.setDuration(1000);
         anim.setEvaluator(new ArgbEvaluator());
         anim.start();
-    }
-
-    public void slideUp() {
-        Animation myanim = AnimationUtils.loadAnimation(this, R.anim.slideup);
-        shipBody.startAnimation(myanim);
-        targetShip.startAnimation(myanim);
-
-        Thread slideUpThread = new Thread()
-        {
-            @Override
-            public void run(){
-                try{
-                    sleep(2000);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-                finally {
-                    slideDown();
-                }
-            }
-        };
-        slideUpThread.start();
-    }
-
-    public void slideDown(){
-        Animation myanim = AnimationUtils.loadAnimation(this, R.anim.slidedown);
-        shipBody.startAnimation(myanim);
-        targetShip.startAnimation(myanim);
-
-        Thread slideDownThread = new Thread()
-        {
-            @Override
-            public void run(){
-                try{
-                    sleep(2000);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-                finally {
-                    slideUp();
-                }
-            }
-        };
-        slideDownThread.start();
     }
 
     public void gunfire_effect_animation(){
@@ -1196,6 +1855,24 @@ public class Stage1_a_Activity extends AppCompatActivity {
 
         explosionImpact.setImageResource(R.drawable.explosion_effect);
         AnimationDrawable explosion_fx_animation = (AnimationDrawable) explosionImpact.getDrawable();
+        explosion_fx_animation.start();
+    }
+
+    public void theatricalExplosionAnim(){
+        ImageView theatrical_explosion_fx = findViewById(R.id.theatrical_explosion_fx);
+        theatrical_explosion_fx.setVisibility(View.VISIBLE);
+
+        theatrical_explosion_fx.setImageResource(R.drawable.explosion_effect);
+        AnimationDrawable explosion_fx_animation = (AnimationDrawable) theatrical_explosion_fx.getDrawable();
+        explosion_fx_animation.start();
+    }
+
+    public void theatricalLaunch(){
+        ImageView theatrical_launch_fx = findViewById(R.id.missile_launch_1st);
+        theatrical_launch_fx.setVisibility(View.VISIBLE);
+
+        theatrical_launch_fx.setImageResource(R.drawable.theatrical_launch);
+        AnimationDrawable explosion_fx_animation = (AnimationDrawable) theatrical_launch_fx.getDrawable();
         explosion_fx_animation.start();
     }
 

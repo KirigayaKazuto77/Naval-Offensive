@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+
+    <item android:drawable="@drawable/missile_launch_1"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_2"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_3"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_4"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_5"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_6"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_7"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_8"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_9"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_10"
+        android:duration="1000"/>
+    <item android:drawable="@drawable/missile_launch_11"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_12"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_13"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_14"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_15"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_16"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_17"
+        android:duration="100"/>
+    <item android:drawable="@drawable/missile_launch_18"
+        android:duration="100"/>
+
+</animation-list>

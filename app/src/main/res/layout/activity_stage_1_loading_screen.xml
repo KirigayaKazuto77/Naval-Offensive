@@ -27,13 +27,95 @@
         android:visibility="gone"
         android:id="@+id/loadingScreen_BG_3"/>
 
-    <ProgressBar
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="30dp"
-        android:layout_centerHorizontal="true"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_4"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_4"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_5"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_5"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_6"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_6"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_7"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_7"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_8"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_8"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_9"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_9"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_10"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_10"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_11"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_11"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_12"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_12"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_13"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_13"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_14"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_14"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_15"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_15"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loadingscreen_16"
+        android:visibility="gone"
+        android:id="@+id/loadingScreen_BG_16"/>
 
 </RelativeLayout>

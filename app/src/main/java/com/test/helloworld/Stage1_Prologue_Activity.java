@@ -54,6 +54,91 @@ public class Stage1_Prologue_Activity extends AppCompatActivity {
             voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage3_prologue_voice);
             voiceOver.start();
         }
+
+        if (chosenlevel == 4){
+            stageDetails = findViewById(R.id.stage4_details);
+            stageDetails.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage4_prologue_voice);
+            voiceOver.start();
+        }
+
+        if (chosenlevel == 5){
+            stageDetails = findViewById(R.id.stage5_details);
+            stageDetails.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage5_prologue_voice);
+            voiceOver.start();
+        }
+        if (chosenlevel == 6){
+            stageDetails = findViewById(R.id.stage6_details);
+            stageDetails.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage6_prologue_voice);
+            voiceOver.start();
+        }
+        if (chosenlevel == 7){
+            stageDetails = findViewById(R.id.stage7_details);
+            stageDetails.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage7_prologue_voice);
+            voiceOver.start();
+        }
+
+        if (chosenlevel == 8){
+            stageDetails = findViewById(R.id.stage8_details);
+            stageDetails.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage8_prologue_voice);
+            voiceOver.start();
+        }
+
+        if (chosenlevel == 9){
+            stageDetails = findViewById(R.id.stage9_details);
+            stageDetails.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage9_prologue_voice);
+            voiceOver.start();
+        }
+        if (chosenlevel == 10){
+            stageDetails = findViewById(R.id.stage10_details);
+            stageDetails.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage10_prologue_voice);
+            voiceOver.start();
+        }
+        if (chosenlevel == 11){
+            stageDetails = findViewById(R.id.stage11_details);
+            stageDetails.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage11_prologue_voice);
+            voiceOver.start();
+        }
+
+        if (chosenlevel == 12){
+            stageDetails = findViewById(R.id.stage12_details);
+            stageDetails.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage12_prologue_voice);
+            voiceOver.start();
+        }
+
+        if (chosenlevel == 13){
+            stageDetails = findViewById(R.id.stage13_details);
+            stageDetails.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage13_prologue_voice);
+            voiceOver.start();
+        }
+        if (chosenlevel == 14){
+            stageDetails = findViewById(R.id.stage14_details);
+            stageDetails.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage14_prologue_voice);
+            voiceOver.start();
+        }
+        if (chosenlevel == 15){
+            stageDetails = findViewById(R.id.stage15_details);
+            stageDetails.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage15_prologue_voice);
+            voiceOver.start();
+        }
+
+        if (chosenlevel == 16){
+            stageDetails = findViewById(R.id.stage16_details);
+            stageDetails.setVisibility(View.VISIBLE);
+            voiceOver = MediaPlayer.create(Stage1_Prologue_Activity.this, R.raw.stage16_prologue_voice);
+            voiceOver.start();
+        }
         //****************************************************************** SHAREDPREFERENCES INITIALIZATION END
         //******************************************************************************************
     }

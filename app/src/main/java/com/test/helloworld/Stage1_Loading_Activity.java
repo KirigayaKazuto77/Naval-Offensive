@@ -44,6 +44,58 @@ public class Stage1_Loading_Activity extends AppCompatActivity {
             loadingScreenBG = findViewById(R.id.loadingScreen_BG_3);
             loadingScreenBG.setVisibility(View.VISIBLE);
         }
+        if (chosenlevel == 4){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_4);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        if (chosenlevel == 5){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_5);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        if (chosenlevel == 6){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_6);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        if (chosenlevel == 7){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_7);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        if (chosenlevel == 8){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_8);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        if (chosenlevel == 9){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_9);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        if (chosenlevel == 10){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_10);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        if (chosenlevel == 11){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_11);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        if (chosenlevel == 12){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_12);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        if (chosenlevel == 13){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_13);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        if (chosenlevel == 14){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_14);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        if (chosenlevel == 15){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_15);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
+        if (chosenlevel == 16){
+            loadingScreenBG = findViewById(R.id.loadingScreen_BG_16);
+            loadingScreenBG.setVisibility(View.VISIBLE);
+        }
         //****************************************************************** SHAREDPREFERENCES INITIALIZATION END
         //******************************************************************************************
 

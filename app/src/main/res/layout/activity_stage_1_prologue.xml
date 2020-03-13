@@ -36,6 +36,110 @@
         android:visibility="gone"
         android:id="@+id/stage3_details"/>
 
+    <ImageView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/stage4_prologue_details"
+        android:visibility="gone"
+        android:id="@+id/stage4_details"/>
+
+    <ImageView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/stage5_prologue_details"
+        android:visibility="gone"
+        android:id="@+id/stage5_details"/>
+
+    <ImageView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/stage6_prologue_details"
+        android:visibility="gone"
+        android:id="@+id/stage6_details"/>
+
+    <ImageView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/stage7_prologue_details"
+        android:visibility="gone"
+        android:id="@+id/stage7_details"/>
+
+    <ImageView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/stage8_prologue_details"
+        android:visibility="gone"
+        android:id="@+id/stage8_details"/>
+
+    <ImageView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/stage9_prologue_details"
+        android:visibility="gone"
+        android:id="@+id/stage9_details"/>
+
+    <ImageView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/stage10_prologue_details"
+        android:visibility="gone"
+        android:id="@+id/stage10_details"/>
+
+    <ImageView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/stage11_prologue_details"
+        android:visibility="gone"
+        android:id="@+id/stage11_details"/>
+
+    <ImageView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/stage12_prologue_details"
+        android:visibility="gone"
+        android:id="@+id/stage12_details"/>
+
+    <ImageView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/stage13_prologue_details"
+        android:visibility="gone"
+        android:id="@+id/stage13_details"/>
+
+    <ImageView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/stage14_prologue_details"
+        android:visibility="gone"
+        android:id="@+id/stage14_details"/>
+
+    <ImageView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/stage15_prologue_details"
+        android:visibility="gone"
+        android:id="@+id/stage15_details"/>
+
+    <ImageView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/stage16_prologue_details"
+        android:visibility="gone"
+        android:id="@+id/stage16_details"/>
+
     <ImageButton
         android:layout_width="180dp"
         android:layout_height="70dp"
