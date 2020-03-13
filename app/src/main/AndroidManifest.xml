@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
-    package="com.test.helloworld">
+    package="com.project.navaloffensive">
 
     <dist:module dist:instant="true" />
 
@@ -23,14 +23,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <service android:enabled="true" android:name=".BackgroundSoundService" />
-        <service android:enabled="true" android:name=".LoadingSoundService" />
-        <service android:enabled="true" android:name=".GamePlay_Music_1_Service" />
-        <service android:enabled="true" android:name=".GamePlay_Music_2_Service" />
-        <service android:enabled="true" android:name=".GamePlay_Music_3_Service" />
-        <service android:enabled="true" android:name=".GamePlay_Music_4_Service" />
+        <service android:enabled="true" android:name="com.project.navaloffensive.BackgroundSoundService" />
+        <service android:enabled="true" android:name="com.project.navaloffensive.LoadingSoundService" />
+        <service android:enabled="true" android:name="com.project.navaloffensive.GamePlay_Music_1_Service" />
+        <service android:enabled="true" android:name="com.project.navaloffensive.GamePlay_Music_2_Service" />
+        <service android:enabled="true" android:name="com.project.navaloffensive.GamePlay_Music_3_Service" />
+        <service android:enabled="true" android:name="com.project.navaloffensive.GamePlay_Music_4_Service" />
 
-        <activity android:name=".SplashActivity1"
+        <activity android:name="com.project.navaloffensive.SplashActivity1"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,47 +39,47 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SplashActivity2"
+        <activity android:name="com.project.navaloffensive.SplashActivity2"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".MainActivity"
+        <activity android:name="com.project.navaloffensive.MainActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".SettingsActivity"
+        <activity android:name="com.project.navaloffensive.SettingsActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".PlayMenuActivity"
+        <activity android:name="com.project.navaloffensive.PlayMenuActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".CampaignListActivity"
+        <activity android:name="com.project.navaloffensive.CampaignListActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".ShopActivity"
+        <activity android:name="com.project.navaloffensive.ShopActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".Stage1_Loading_Activity"
+        <activity android:name="com.project.navaloffensive.Stage1_Loading_Activity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".Stage1_Prologue_Activity"
+        <activity android:name="com.project.navaloffensive.Stage1_Prologue_Activity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".Stage1_a_Activity"
+        <activity android:name="com.project.navaloffensive.Stage1_a_Activity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape">
         </activity>
